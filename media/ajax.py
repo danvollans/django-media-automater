@@ -47,7 +47,8 @@ def search_media(request):
         search_results = search_exist2(search_type=search_type, search=dict(search=search_text, season=search_season, episode=search_episode))
 
         return simplejson.dumps({ 'status':'success', 'data': search_results })
-    return simplejson.dumps({ 'status': '%s FUCK' % search_form.errors })
+    else:
+        return simplejson.dumps({ 'status': '%s' % search_form.errors })
 
 
 @dajaxice_register(method='POST')

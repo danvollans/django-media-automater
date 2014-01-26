@@ -72,7 +72,7 @@ function load_media_callback(data) {
 
 function search_callback(data){
     if (data.status == 'success') {
-        $('#data_loader').html("");
+        $('#data_loader').empty();
         // Check for empty results
         if ( Object.keys(data['data']).length == 0 ) {
             $('#data_loader').html("No matching media. :-(");
@@ -87,9 +87,8 @@ function search_callback(data){
         }
     }
     else {
-        for (message in data.status){
-            $('#data_loader').append("<p><b>" + message + ":</b>" + data.status["message"] + "</p>");
-        }
+        $('#data_loader').empty();
+        $('#data_loader').append("<div style='color: red;'>" + data.status + "</div>");
     }
 }
 function torrent_callback(data){
