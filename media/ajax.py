@@ -36,22 +36,15 @@ def search_media(request):
         # Is this a movie or a tv show search?
         search_type = search_form.cleaned_data['type']
         search_text = search_form.cleaned_data['search_text']
-        if search_type == 'movie':
-            # Search based on movie
-            movies = list_movies()
-            search_results = search_plex( search_filter = search_text )
-            #search_results = search_plex( type = search_type, structure = movies, search_filters = dict( name = search_text))
-        elif search_type == 'show':
-            shows = list_shows()
+        if search_form.cleaned_data['optional_season']:
+            search_season = search_form.cleaned_data['optional_season']
+        else:
             search_season = ""
+        if search_form.cleaned_data['optional_episode']:
+            search_episode = search_form.cleaned_data['optional_episode']
+        else:
             search_episode = ""
-            if search_form.cleaned_data['optional_season'] != "":
-                search_season = int(search_form.cleaned_data['optional_season'])
-            if search_form.cleaned_data['optional_episode'] != "":
-                search_episode = int(search_form.cleaned_data['optional_episode'])
-
-            search_results = search_exist( search_type = search_type, structure = shows, search_filters = dict( name = search_text, season = search_season, episode = search_episode))
-
+        search_results = search_exist2(search_type=search_type, search=dict(search=search_text, season=search_season, episode=search_episode))
 
         return simplejson.dumps({ 'status':'success', 'data': search_results })
     return simplejson.dumps({ 'status': '%s FUCK' % search_form.errors })

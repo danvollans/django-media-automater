@@ -13,8 +13,8 @@ class SearchForm(forms.Form):
         self.helper.form_id = 'search_form'
 
     types =[('movie', 'Movie'), ('show', 'TV Show')]
-    type = forms.ChoiceField(choices=types, widget=forms.RadioSelect(attrs={'class': 'type_select'}), required=False, label="", initial=types[0][0])
-    search_text = forms.CharField(label='Search', required=False)
+    type = forms.ChoiceField(choices=types, widget=forms.RadioSelect(attrs={'class': 'type_select'}), required=True, label="", initial=types[0][0])
+    search_text = forms.CharField(label='Search', required=True)
     optional_season = forms.CharField(label='Season', required=False)
     optional_episode = forms.CharField(label='Episode', required=False)
 

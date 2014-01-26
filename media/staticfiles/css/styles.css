@@ -13,3 +13,9 @@
 #id_torrent_search_text {
     width: 300px;
 }
+.list-group-item {
+    cursor: pointer;
+}
+.list-group {
+    cursor: pointer;
+}

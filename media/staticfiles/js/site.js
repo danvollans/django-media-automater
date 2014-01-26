@@ -1,19 +1,3 @@
-/**
- * Created by djvol_000 on 9/27/13.
- */
-$(document).ready(function () {
-    $(".toggler").each(function() {
-        $( this ).hide()
-    });
-    $(".clicker").each(function() {
-        $( this ).click(function() {
-            container = $( this ).closest('div').next('.toggler');
-            // Toggle the container
-            container.toggle( "slow" );
-        });
-    });
-});
-
 function eachRecursive(data, element)
 {
     for (var data_key in data)
@@ -25,11 +9,12 @@ function eachRecursive(data, element)
             $("<a/>", {
                 class: "list-group-item",
                 text: data_key,
-                onclick: 'javascript: $("#' + new_id + '").toggle()'
+                onclick: 'javascript: $("#' + new_id + '").toggle(); $(this).toggleClass(\'active\');'
             }).appendTo(element);
             var new_group = $("<div/>", {
                 class: "list-group",
-                id: new_id
+                id: new_id,
+                style: "display: none;"
             }).appendTo(element);
             var new_item = $("<div/>", {
                 class: "list-group-item"
@@ -41,7 +26,15 @@ function eachRecursive(data, element)
                 }).appendTo(new_item));
         }
         else {
-            element.append("<div class='list-group-item'>" + data[data_key] + "</div>");
+            var end_element = $("<div/>", {
+                class: "list-group-item",
+                text: data[data_key]
+            }).appendTo(element);
+            // If this is a title, append the name to to parent.
+            if ( data_key == 'title' ) {
+                var parent_anchor = end_element.parent().parent().parent().prev("a.list-group-item");
+                parent_anchor.text(parent_anchor.text() + " - " + data[data_key]);
+            }
         }
     }
 }
@@ -57,11 +50,12 @@ function load_media_callback(data) {
             class: "list-group-item",
             id: section_key + "-list-anchor",
             text: section_key,
-            onclick: 'javascript: $("#' + section_key + '-list-data-group").toggle()'
+            onclick: 'javascript: $("#' + section_key + '-list-data-group").toggle(); $(this).toggleClass(\'active\');'
         }).appendTo("#sections-list-group");
         $("<div/>", {
             class: "list-group",
-            id: section_key + "-list-data-group"
+            id: section_key + "-list-data-group",
+            style: "display: none;"
         }).appendTo("#sections-list-group");
         $("<div/>", {
             class: "list-group-item",
@@ -77,44 +71,58 @@ function load_media_callback(data) {
 }
 
 function search_callback(data){
-  if (data.status == 'success'){
-      $('#data_loader').html("");
-      $.each(data['data'], function(key, value) {
-          $( "<div>" ).appendTo( '#data_loader' ).addClass( "search_result").attr( "id", "r-" + value['media_id'] );
-          $( "<h3>" ).appendTo( '#r-' + value['media_id'] ).html(value['title']).append( "</h3>" );
-          $( "<div>" ).appendTo( '#r-' + value['media_id'] ).addClass( "sub_element").attr( "id", "s-" + value['media_id']);
-          $( '#s-' + value['media_id'] ).html(value['summary']).append( "</div></div>" );
-}     );
-
-  }else{
-    for (message in data.status){
-      $('#data_loader').append("<p><b>" + message + ":</b>" + data.status["message"] + "</p>");
+    if (data.status == 'success') {
+        $('#data_loader').html("");
+        // Check for empty results
+        if ( Object.keys(data['data']).length == 0 ) {
+            $('#data_loader').html("No matching media. :-(");
+        }
+        else {
+            $.each(data['data'], function(key, value) {
+            $( "<div>" ).appendTo( '#data_loader' ).addClass( "search_result").attr( "id", "r-" + value['media_id'] );
+            $( "<h3>" ).appendTo( '#r-' + value['media_id'] ).html(value['title']).append( "</h3>" );
+            $( "<div>" ).appendTo( '#r-' + value['media_id'] ).addClass( "sub_element").attr( "id", "s-" + value['media_id']);
+            $( '#s-' + value['media_id'] ).html(value['summary']).append( "</div></div>" );
+            });
+        }
     }
-  }
+    else {
+        for (message in data.status){
+            $('#data_loader').append("<p><b>" + message + ":</b>" + data.status["message"] + "</p>");
+        }
+    }
 }
 function torrent_callback(data){
-  if (data.status == 'success'){
-      $('#torrent_loader').html("");
-      $.each(data['data'], function(key, value) {
-          $( "<div>" ).appendTo( '#torrent_loader' ).addClass( "search_result").attr( "id", "torrent-" + key );
-          $( "<h3>" ).appendTo( '#torrent-' + key ).html(value['title']).append( "</h3>" );
-          $( "<div>" ).appendTo( '#torrent-' + key ).addClass( "sub_element").attr( "id", "torrent-url-" + key);
+    if (data.status == 'success'){
+        $('#torrent_loader').html("");
+        // Check for empty results
+        if ( Object.keys(data['data']).length == 0 ){
+            $('#torrent_loader').html("No search results. :-(");
+        }
+        else {
+            $.each(data['data'], function(key, value) {
+                $( "<div>" ).appendTo( '#torrent_loader' ).addClass( "search_result").attr( "id", "torrent-" + key );
+                $( "<h3>" ).appendTo( '#torrent-' + key ).html(value['title']).append( "</h3>" );
+                $( "<div>" ).appendTo( '#torrent-' + key ).addClass( "sub_element").attr( "id", "torrent-url-" + key);
 
-          // Add a link here to call the ajax request for transmission rpc
-          $( '<a class="clicker" id="torrent-a-' + key + '">').appendTo( '#torrent-url-' + key ).html("Click to download").append( "</a></div></div>" );
+                // Add a link here to call the ajax request for transmission rpc
+                $( '<a class="clicker" id="torrent-a-' + key + '">').appendTo( '#torrent-url-' + key ).html("Click to download").append( "</a></div></div>" );
 
-          // Add the onclick event for transmission RPC
-          $( '#torrent-a-' + key).click(function() {
-              $( '#torrent-a-' + key).html("Download posted, waiting...");
-              Dajaxice.media.transmission_torrent(transmission_callback, {'url': value['url'], 'id': 'torrent-a-' + key } );
-          });
+                // Add the onclick event for transmission RPC
+                $( '#torrent-a-' + key).click(function() {
+                    $( '#torrent-a-' + key).html("Download posted, waiting...");
+                    Dajaxice.media.transmission_torrent(transmission_callback, {'url': value['url'], 'id': 'torrent-a-' + key } );
+                });
 
-      } );
-  }else{
-    for (message in data.status){
-      $('#torrent_loader').append("<p><b>" + message + ":</b>" + data.status["message"] + "</p>");
+            });
+        }
     }
-  }
+    else
+    {
+        for (message in data.status){
+            $('#torrent_loader').append("<p><b>" + message + ":</b>" + data.status["message"] + "</p>");
+        }
+    }
 }
 function transmission_callback(data){
     if (data.status == 'success') {

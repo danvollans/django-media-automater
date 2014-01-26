@@ -16,11 +16,25 @@
     <link type='text/css' href='/static/css/bootstrap-theme.css' rel='stylesheet'>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
     <script type="text/javascript">
+        function load_media() {
+            $('#load_media').empty();
+            $('#load_media').append("Loading...");
+            Dajaxice.media.load_media(load_media_callback);
+        }
         function search_media() {
+            $('#data_loader').empty();
+            $('#data_loader').append("Loading...");
             Dajaxice.media.search_media(search_callback, $('#search_form').serializeObject() );
         }
         function search_torrents() {
+            $('#torrent_loader').empty();
+            $('#torrent_loader').append("Loading...");
             Dajaxice.media.search_torrent(torrent_callback, $('#torrent_form').serializeObject() );
+        }
+        function refresh_files() {
+            $('#files_loader').empty();
+            $('#files_loader').append("Loading...");
+            Dajaxice.media.refresh_files(files_callback);
         }
     </script>
     {% dajaxice_js_import %}
@@ -32,7 +46,7 @@
 
 <h1>{{ media_header_title }}</h1>
 
-<a href="#" onclick="Dajaxice.media.load_media(load_media_callback);">Load Media</a>
+<a href="#" onclick="load_media(); return false">Load Media</a>
 <div id="load_media">
 
 </div>
@@ -62,7 +76,7 @@
 <div class="function_wrapper" id="finished_files_wrapper">
     <h1>{{ files_header_title }}</h1>
     <div>
-        <a id="files_reloader" href="#" onclick="Dajaxice.media.refresh_files(files_callback)">Refresh File Listing...</a>
+        <a id="files_reloader" href="#" onclick="refresh_files(); return false;">Refresh File Listing...</a>
         <div id="files_loader">
 
         </div>

@@ -15,8 +15,9 @@ from urllib.parse import urlencode
 from collections import OrderedDict
 import sys
 from media_automater.config import *
+import re
 
-__all__ = ["list_movies", "list_shows", "search_exist", "search_plex"]
+__all__ = ["list_movies", "list_shows", "search_exist", "search_plex", "search_exist2"]
 
 
 def list_movies():
@@ -57,24 +58,24 @@ def list_shows():
                 videos = xml_section.getElementsByTagName('Video')
 
                 for video in videos:
-                    show_name = video.getAttribute('grandparentTitle').lower()
-                    show_season = int(video.getAttribute('parentIndex'))
+                    show_name = video.getAttribute('grandparentTitle')
+                    show_season = "Season " + video.getAttribute('parentIndex')
                     show_episode_number = int(video.getAttribute('index'))
-                    show_episode_title = video.getAttribute('title').lower()
+                    show_episode_title = video.getAttribute('title')
                     show_summary = video.getAttribute('summary')
                     media_id = video.getAttribute('ratingKey')
                     if show_name not in show_dict:
-                        show_dict[show_name] = OrderedDict( seasons = OrderedDict() )
-                    if show_season not in show_dict[show_name]["seasons"]:
-                        show_dict[show_name]["seasons"][show_season] = OrderedDict()
-                    show_dict[show_name]["seasons"][show_season][show_episode_number] = OrderedDict( title = show_episode_title, summary = show_summary, media_id = media_id )
+                        show_dict[show_name] = OrderedDict()
+                    if show_season not in show_dict[show_name]:
+                        show_dict[show_name][show_season] = OrderedDict()
+                    show_dict[show_name][show_season][show_episode_number] = OrderedDict( title = show_episode_title, summary = show_summary, media_id = media_id )
 
         # Resort this dictionary
         show_dict = OrderedDict( sorted( show_dict.items() ) )
         for show in show_dict:
-            show_dict[show]["seasons"] = OrderedDict( sorted( show_dict[show]["seasons"].items() ) )
-            for season in show_dict[show]["seasons"]:
-                show_dict[show]["seasons"][season] = OrderedDict( sorted( show_dict[show]["seasons"][season].items() ) )
+            show_dict[show] = OrderedDict( sorted( show_dict[show].items() ) )
+            for season in show_dict[show]:
+                show_dict[show][season] = OrderedDict( sorted( show_dict[show][season].items() ) )
 
         return show_dict
     except:
@@ -89,16 +90,68 @@ def search_exist(search_type, structure, search_filters):
         list_match = [movie for movie in structure if search_name in movie]
         return list_match
     elif search_type == "show":
-        result_set = structure.get(search_name, {}).get('seasons', {}).get(search_filters["season"], {}).get(search_filters["episode"], {})
+        result_set = structure.get(search_name, {}).get(search_filters["season"], {}).get(search_filters["episode"], {})
         if result_set:
-            title = structure[search_name]["seasons"][search_filters["season"]][search_filters["episode"]]["title"]
-            media_id = structure[search_name]["seasons"][search_filters["season"]][search_filters["episode"]]["media_id"]
-            results[title] = dict( title = title, summary = structure[search_name]["seasons"][search_filters["season"]][search_filters["episode"]]["summary"], media_id = media_id )
+            title = structure[search_name][search_filters["season"]][search_filters["episode"]]["title"]
+            media_id = structure[search_name][search_filters["season"]][search_filters["episode"]]["media_id"]
+            results[title] = dict( title = title, summary = structure[search_name][search_filters["season"]][search_filters["episode"]]["summary"], media_id = media_id )
             return results
-        result_set = structure.get(search_name, {}).get('seasons', {}).get(search_filters["season"], {})
+        result_set = structure.get(search_name, {}).get(search_filters["season"], {}).get(search_filters["season"], {})
         if result_set:
             return result_set
 
+
+# New TV Show search using Plex HTTP API
+def search_exist2(search_type, search):
+    if search_type == 'movie':
+        search_query = '/library/sections/1/search?'
+        get_data = urlencode({'type': '1', 'query': search['search']})
+        xml_section = minidom.parse(urlopen(PLEX_URL + search_query + get_data))
+        search_results = xml_section.getElementsByTagName('Video')
+    elif search_type == 'show':
+        search_query = '/library/sections/2/search?'
+        get_data = urlencode({'type': '2', 'query': search['search']})
+        xml_section = minidom.parse(urlopen(PLEX_URL + search_query + get_data))
+        directories = xml_section.getElementsByTagName('Directory')
+        search_results = []
+        if directories:
+            for directory in directories:
+                search_key = directory.getAttribute('ratingKey')
+                if not search.get('season', None) or search['season'] == '':
+                    # Make new request to get all episodes
+                    search_query = '/library/metadata/' + search_key + '/allLeaves'
+                    xml_section = minidom.parse(urlopen(PLEX_URL + search_query))
+                    for result in xml_section.getElementsByTagName('Video'):
+                        search_results.append(result)
+                elif search['season'] and search['season'] != '':
+                    # Make new request to get all episodes
+                    search_query = '/library/metadata/' + search_key + '/children'
+                    xml_section = minidom.parse(urlopen(PLEX_URL + search_query))
+                    # Now retrieve all children seasons
+                    for result in xml_section.getElementsByTagName('Directory'):
+                        if result.getAttribute('index') == search['season']:
+                            episodes_by_season_query = result.getAttribute('key')
+                            new_xml_section = minidom.parse(urlopen(PLEX_URL + episodes_by_season_query))
+                            for new_result in new_xml_section.getElementsByTagName('Video'):
+                                if search.get('episode', None) and search['episode'] != '':
+                                    if search['episode'].isdigit() and search['episode'] == new_result.getAttribute('index'):
+                                        search_results.append(new_result)
+                                    elif re.match(search['episode'], new_result.getAttribute('title')):
+                                        search_results.append(new_result)
+                                else:
+                                    search_results.append(new_result)
+    # Parse through search_results
+    # These should all be video elements at this point
+    return_results = []
+    for video in search_results:
+        video_title = video.getAttribute('title')
+        video_year = video.getAttribute('year')
+        video_summary = video.getAttribute('summary')
+        video_type = video.getAttribute('type')
+        video_id = video.getAttribute('ratingKey')
+        video_dict = dict( summary = video_summary, media_id = video_id, title = video_title + ' ' + video_year)
+        return_results.append(video_dict)
+    return return_results
 
 
 # Use this for searching Movies
@@ -122,18 +175,21 @@ def search_plex(search_filter):
     return results
 
 if __name__ == '__main__':
-    movies = list_movies()
-    tv_shows = list_shows()
+    #movies = list_movies()
+    #tv_shows = list_shows()
 
-    search_show = "Breaking Bad"
-    search_season = 1
-    search_episode = 2
+    #search_show = "Breaking Bad"
+    #search_season = 1
+    #search_episode = 2
 
-    print(search_exist(search_type = "show", structure = tv_shows, search_filters = dict( name = search_show, season = search_season, episode = search_episode)))
-    print(search_exist(search_type = "show", structure = tv_shows, search_filters = dict( name = search_show, season = search_season, episode = "")))
+    #print(search_exist(search_type = "show", structure = tv_shows, search_filters = dict( name = search_show, season = search_season, episode = search_episode)))
+    #print(search_exist(search_type = "show", structure = tv_shows, search_filters = dict( name = search_show, season = search_season, episode = "")))
 
-    search_movie = "Aliens"
-    print(search_exist(search_type = "movie", structure = movies, search_filters = dict( name = search_movie)))
+    #search_movie = "Aliens"
+    #print(search_exist(search_type = "movie", structure = movies, search_filters = dict( name = search_movie)))
 
-    search_text = "star wars"
-    print(search_plex( search_filter = search_text ))
+    #search_text = "star wars"
+    #print(search_plex( search_filter = search_text ))
+
+    # Try new plex search
+    print(search_exist2(search_type='movie', search=dict(search='Indiana Jones',season='1', episode='1')))

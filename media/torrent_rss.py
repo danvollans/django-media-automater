@@ -7,7 +7,7 @@ Parse RSS feed from Kat.ph and return dataset
 """
 
 from xml.etree import ElementTree as etree
-from urllib.request import urlopen
+from urllib.request import urlopen, URLError
 from urllib.parse import urlencode
 from collections import OrderedDict
 import sys
@@ -21,7 +21,13 @@ def parse_rss(search_filter):
         return dict()
     get_data = search_filter.lower()
     rss_tag = urlencode( {'rss': '1', 'field': 'seeders', 'sorder': 'desc'} )
-    xml_section = etree.parse(urlopen(rss_url + '/usearch/%s/?%s' % (get_data, rss_tag)))
+
+    try:
+        search_page = urlopen(rss_url + '/usearch/%s/?%s' % (get_data, rss_tag))
+    except URLError:
+        return dict()
+
+    xml_section = etree.parse(search_page)
     torrents = list(xml_section.iter('item'))
 
     search_results = OrderedDict()

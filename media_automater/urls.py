@@ -24,6 +24,9 @@ urlpatterns = patterns('',
 
     # Dajax
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
+
+    # Catch all for home
+    url(r'^$', 'media.views.home', name='home'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
