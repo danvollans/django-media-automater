@@ -1,0 +1,13 @@
+.clicker {
+    cursor: pointer;
+}
+.sub_element {
+    margin-left: 20px;
+}
+.function_wrapper {
+    width: 33%;
+    float: left;
+}
+#id_torrent_search_text {
+    width: 300px;
+}
