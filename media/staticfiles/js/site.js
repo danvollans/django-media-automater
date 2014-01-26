@@ -105,12 +105,14 @@ function torrent_callback(data){
                 $( "<div>" ).appendTo( '#torrent-' + key ).addClass( "sub_element").attr( "id", "torrent-url-" + key);
 
                 // Add a link here to call the ajax request for transmission rpc
-                $( '<a class="clicker" id="torrent-a-' + key + '">').appendTo( '#torrent-url-' + key ).html("Click to download").append( "</a></div></div>" );
+                $( '<button class="btn btn-sm btn-info clicker" id="torrent-b-' + key + '">').appendTo( '#torrent-url-' + key ).html("Click to download").append( "</button></div></div>" );
 
                 // Add the onclick event for transmission RPC
-                $( '#torrent-a-' + key).click(function() {
-                    $( '#torrent-a-' + key).html("Download posted, waiting...");
-                    Dajaxice.media.transmission_torrent(transmission_callback, {'url': value['url'], 'id': 'torrent-a-' + key } );
+                $( '#torrent-b-' + key).click(function() {
+                    $( '#torrent-b-' + key).html("Download posted, waiting...");
+                    $( '#torrent-b-' + key).removeClass('btn-info');
+                    $( '#torrent-b-' + key).addClass('btn-warning');
+                    Dajaxice.media.transmission_torrent(transmission_callback, {'url': value['url'], 'id': 'torrent-b-' + key } );
                 });
 
             });
@@ -125,9 +127,13 @@ function torrent_callback(data){
 }
 function transmission_callback(data){
     if (data.status == 'success') {
+        $( '#' + data.id).removeClass('btn-warning');
+        $( '#' + data.id).addClass('btn-success');
         $( '#' + data.id).html(data.data)
     }
     else {
+        $( '#' + data.id).removeClass('btn-warning');
+        $( '#' + data.id).addClass('btn-danger');
         $( '#' + data.id).html(data.data)
     }
 }

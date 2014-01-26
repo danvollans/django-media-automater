@@ -79,7 +79,7 @@ def transmission_torrent(request):
     try:
         transmission_client = transmissionrpc.Client(TRANSMISSION_HOST, port=TRANSMISSION_PORT, user=TRANSMISSION_USER, password=TRANSMISSION_PASS)
         torrent_return = transmission_client.add_torrent( posted_url )
-    except transmissionrpc.TransmissionError:
+    except (transmissionrpc.TransmissionError, KeyError) as error:
         return simplejson.dumps({ 'status': 'failure', 'data': "There was an error getting the file to transmission, please try again.", 'id': element_id })
 
     # Check return data after a short sleep
