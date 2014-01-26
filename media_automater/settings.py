@@ -22,6 +22,9 @@ DATABASES = {
     }
 }
 
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -137,6 +140,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'media',
+    'crispy_forms',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

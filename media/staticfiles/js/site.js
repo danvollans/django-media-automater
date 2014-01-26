@@ -14,6 +14,68 @@ $(document).ready(function () {
     });
 });
 
+function eachRecursive(data, element)
+{
+    for (var data_key in data)
+    {
+        if (typeof data[data_key] == "object" && data[data_key] !== null) {
+            // Create a new list group, and then an item that is another list group GROUP-CEPTION!
+            // First display the title
+            var new_id = element.attr('id') + "-" + data_key.replace(" ", "-");
+            $("<a/>", {
+                class: "list-group-item",
+                text: data_key,
+                onclick: 'javascript: $("#' + new_id + '").toggle()'
+            }).appendTo(element);
+            var new_group = $("<div/>", {
+                class: "list-group",
+                id: new_id
+            }).appendTo(element);
+            var new_item = $("<div/>", {
+                class: "list-group-item"
+            }).appendTo(new_group);
+            eachRecursive(data[data_key],
+                $("<div/>", {
+                    class: "list-group",
+                    id: new_id + '-sub-'
+                }).appendTo(new_item));
+        }
+        else {
+            element.append("<div class='list-group-item'>" + data[data_key] + "</div>");
+        }
+    }
+}
+
+function load_media_callback(data) {
+    $("#load_media").empty();
+    $("<div/>", {
+        class: "list-group",
+        id: "sections-list-group"
+    }).appendTo("#load_media");
+    for (var section_key in data) {
+        $("<a/>", {
+            class: "list-group-item",
+            id: section_key + "-list-anchor",
+            text: section_key,
+            onclick: 'javascript: $("#' + section_key + '-list-data-group").toggle()'
+        }).appendTo("#sections-list-group");
+        $("<div/>", {
+            class: "list-group",
+            id: section_key + "-list-data-group"
+        }).appendTo("#sections-list-group");
+        $("<div/>", {
+            class: "list-group-item",
+            id: section_key + "-list-data-group-item"
+        }).appendTo("#" + section_key + "-list-data-group");
+        $("<div/>", {
+            class: "list-group",
+            id: section_key + "-list-data-group-item-group"
+        }).appendTo("#" + section_key + "-list-data-group-item");
+
+        eachRecursive(data[section_key], $('#' + section_key + "-list-data-group-item-group"));
+    }
+}
+
 function search_callback(data){
   if (data.status == 'success'){
       $('#data_loader').html("");

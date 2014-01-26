@@ -10,16 +10,12 @@ def home(request):
     media_header_title = "current media"
     torrent_header_title = "torrent search"
     files_header_title = "finished files"
-    movie_list = list_movies()
-    show_list = list_shows()
     template = loader.get_template('index.html')
     content = Context({
 	    'page_title': page_title,
 	    'media_header_title': media_header_title,
         'torrent_header_title': torrent_header_title,
         'files_header_title': files_header_title,
-        'movie_list': sorted(movie_list),
-        'show_list': show_list,
         'search_form': SearchForm(),
         'torrent_form': TorrentForm(),
 	})

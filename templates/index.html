@@ -1,4 +1,5 @@
 {% load dajaxice_templatetags %}
+{% load crispy_forms_tags %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -11,6 +12,17 @@
     <script src="/static/js/jquery.ba-serializeobject.min.js" type="text/javascript"> </script>
     <script src="/static/js/jquery.tinysort.js" type="text/javascript"> </script>
     <script src="/static/js/site.js" type="text/javascript"></script>
+    <link type='text/css' href='/static/css/bootstrap.css' rel='stylesheet'>
+    <link type='text/css' href='/static/css/bootstrap-theme.css' rel='stylesheet'>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        function search_media() {
+            Dajaxice.media.search_media(search_callback, $('#search_form').serializeObject() );
+        }
+        function search_torrents() {
+            Dajaxice.media.search_torrent(torrent_callback, $('#torrent_form').serializeObject() );
+        }
+    </script>
     {% dajaxice_js_import %}
 </head>
 
@@ -20,46 +32,14 @@
 
 <h1>{{ media_header_title }}</h1>
 
-<div>
-    <a class="clicker">movies</a>
-</div>
-<div class="toggler sub_element" id="movie_container">
-{% for movie in movie_list %}
-    <div id="movie-{{ forloop.counter }}">{{ movie }}</div>
-{% endfor %}
+<a href="#" onclick="Dajaxice.media.load_media(load_media_callback);">Load Media</a>
+<div id="load_media">
+
 </div>
 
-<div>
-    <a class="clicker">tv shows</a>
-</div>
-<div class="toggler" id="show_container">
-{% for show, data in show_list.items %}
-    <div class="sub_element" id="show-{{ forloop.counter }}">
-        <a class="clicker">{{ show }}</a>
-    </div>
-    <div class="toggler sub_element" id="season_container">
-        {% for season, data in data.seasons.items %}
-            <div class="sub_element" id="show-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
-                <a class="clicker">{{ season }}</a>
-            </div>
-
-            <div class="toggler sub_element" id="episode_container">
-                {% for episode, data in data.items %}
-                    <div class="sub_element">{{ episode }} - {{ data.title }}</div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-    </div>
-{% endfor %}
-</div>
 
 <div>
-    <form action="" method="POST" id="search_form" accept-charset="utf-8">{% csrf_token %}
-        <table>
-            {{ search_form }}
-        </table>
-        <p><input value="Search" id="search_media" onclick="Dajaxice.media.search_media(search_callback, $('#search_form').serializeObject() );" type="button" /></p>
-    </form>
+    {% crispy search_form %}
     <div id="data_loader">
 
     </div>
@@ -70,14 +50,9 @@
 <div class="function_wrapper" id="torrent_search_wrapper">
     <h1>{{ torrent_header_title }}</h1>
     <div>
-        <form action="" method="POST" id="torrent_form" accept-charset="utf-8">{% csrf_token %}
-            <table>
-                {{ torrent_form }}
-            </table>
-            <p><input value="Search" id="search_torrent" onclick="Dajaxice.media.search_torrent(torrent_callback, $('#torrent_form').serializeObject() );" type="button" /></p>
-            <p><i>ex. World War Z (720p / 1080p)</i></p>
-            <p><i>ex. Breaking Bad s01e02 720p</i></p>
-        </form>
+        {%  crispy torrent_form %}
+        <p><i>ex. World War Z (720p / 1080p)</i></p>
+        <p><i>ex. Breaking Bad s01e02 720p</i></p>
         <div id="torrent_loader">
 
         </div>

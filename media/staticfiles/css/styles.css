@@ -7,6 +7,8 @@
 .function_wrapper {
     width: 33%;
     float: left;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 #id_torrent_search_text {
     width: 300px;

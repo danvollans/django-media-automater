@@ -12,9 +12,18 @@ import re
 import operator
 from collections import OrderedDict
 from media_automater.config import *
+from media.plex_funcs import *
 
 
-@dajaxice_register( method='POST' )
+@dajaxice_register(method='POST')
+def load_media(request):
+    # Load the media from Plex
+    movies = list_movies()
+    shows = list_shows()
+    return simplejson.dumps({'movies': movies, 'shows': shows})
+
+
+@dajaxice_register(method='POST')
 def search_media(request):
     posted_json = request.POST.getlist('argv')
     if not posted_json:
@@ -47,7 +56,8 @@ def search_media(request):
         return simplejson.dumps({ 'status':'success', 'data': search_results })
     return simplejson.dumps({ 'status': '%s FUCK' % search_form.errors })
 
-@dajaxice_register( method='POST' )
+
+@dajaxice_register(method='POST')
 def search_torrent(request):
     posted_json = request.POST.getlist('argv')
     if not posted_json:
@@ -63,7 +73,8 @@ def search_torrent(request):
     else:
         return simplejson.dumps({ 'status': '%s FUCK' % torrent_form.errors })
 
-@dajaxice_register( method='POST' )
+
+@dajaxice_register(method='POST')
 def transmission_torrent(request):
     posted_json = request.POST.getlist('argv')
     posted_data = ast.literal_eval(posted_json[0])
@@ -87,7 +98,8 @@ def transmission_torrent(request):
 
     return simplejson.dumps({ 'status': 'success', 'data': torrent_status, 'id': element_id })
 
-@dajaxice_register( method='POST' )
+
+@dajaxice_register(method='POST')
 def refresh_files(request):
     try:
         transmission_client = transmissionrpc.Client(TRANSMISSION_HOST, port=TRANSMISSION_PORT, user=TRANSMISSION_USER, password=TRANSMISSION_PASS)
@@ -108,7 +120,8 @@ def refresh_files(request):
 
     return simplejson.dumps({ 'status': 'success', 'data': files })
 
-@dajaxice_register( method='POST' )
+
+@dajaxice_register(method='POST')
 def delete_torrent(request):
     posted_json = request.POST.getlist('argv')
     posted_data = ast.literal_eval(posted_json[0])
