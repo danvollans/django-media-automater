@@ -141,7 +141,7 @@ function files_callback(data){
             if ( $('#torrent-container-' + key).length == 0 ) {
                 $( '#files_loader').append('<div id="torrent-container-' + key + '"></div>');
                 // Add onclick delete function here
-                $( '#torrent-container-' + key).append('<h3>Torrent ' + key + ' - <a href="#torrent-container-' + key +'" onclick="delete_torrent(' + key + '); return false;">DELETE</a></h3>');
+                $( '#torrent-container-' + key).append('<h3>Torrent ' + key + ' - <button type="buttpn" class="btn btn-xs btn-danger" onclick="delete_torrent(' + key + '); return false;">Delete Torrent and Data</button></h3>');
             }
             // Append each list item to this div
             var length = value.length,

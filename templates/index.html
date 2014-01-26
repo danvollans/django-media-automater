@@ -46,7 +46,7 @@
 
 <h1>{{ media_header_title }}</h1>
 
-<a href="#" onclick="load_media(); return false">Load Media</a>
+<button class="btn btn-success" type="button" onclick="load_media(); return false">Load Current Media</button>
 <div id="load_media" class="loader">
 
 </div>
@@ -74,7 +74,7 @@
 <div class="function_wrapper" id="finished_files_wrapper">
     <h1>{{ files_header_title }}</h1>
     <div>
-        <a id="files_reloader" href="#" onclick="refresh_files(); return false;">Refresh File Listing...</a>
+        <button class="btn btn-success" type="button"  id="files_reloader" onclick="refresh_files(); return false;">Refresh File Listing...</button>
         <div id="files_loader" class="loader">
 
         </div>
