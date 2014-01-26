@@ -47,14 +47,14 @@
 <h1>{{ media_header_title }}</h1>
 
 <a href="#" onclick="load_media(); return false">Load Media</a>
-<div id="load_media">
+<div id="load_media" class="loader">
 
 </div>
 
 
 <div>
     {% crispy search_form %}
-    <div id="data_loader">
+    <div id="data_loader" class="loader">
 
     </div>
 </div>
@@ -65,9 +65,7 @@
     <h1>{{ torrent_header_title }}</h1>
     <div>
         {%  crispy torrent_form %}
-        <p><i>ex. World War Z (720p / 1080p)</i></p>
-        <p><i>ex. Breaking Bad s01e02 720p</i></p>
-        <div id="torrent_loader">
+        <div id="torrent_loader" class="loader">
 
         </div>
     </div>
@@ -77,7 +75,7 @@
     <h1>{{ files_header_title }}</h1>
     <div>
         <a id="files_reloader" href="#" onclick="refresh_files(); return false;">Refresh File Listing...</a>
-        <div id="files_loader">
+        <div id="files_loader" class="loader">
 
         </div>
     </div>

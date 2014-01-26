@@ -26,4 +26,4 @@ class TorrentForm(forms.Form):
         self.helper.add_input(Submit('search', 'Search', onclick="search_torrents(); return false;", onsubmit="search_torrents(); return false;"))
         self.helper.form_id = 'torrent_form'
 
-    torrent_search_text = forms.CharField(label='Search Torrents', required=False)
+    torrent_search_text = forms.CharField(label='Search Torrents', required=False, help_text="<p><i>ex. World War Z (720p / 1080p)</i></p><p><i>ex. Breaking Bad s01e02 720p</i></p>")

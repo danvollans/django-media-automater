@@ -19,3 +19,6 @@
 .list-group {
     cursor: pointer;
 }
+.loader {
+    margin-top: 20px;
+}
