@@ -44,7 +44,7 @@ def search_media(request):
             search_episode = search_form.cleaned_data['optional_episode']
         else:
             search_episode = ""
-        search_results = search_exist2(search_type=search_type, search=dict(search=search_text, season=search_season, episode=search_episode))
+        search_results = search_plex(search_type=search_type, search=dict(search=search_text, season=search_season, episode=search_episode))
 
         return simplejson.dumps({ 'status':'success', 'data': search_results })
     else:

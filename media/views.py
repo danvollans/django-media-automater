@@ -7,9 +7,9 @@ from django.core.context_processors import csrf
 
 def home(request):
     page_title = "media automater"
-    media_header_title = "current media"
+    media_header_title = "plex media"
     torrent_header_title = "torrent search"
-    files_header_title = "finished files"
+    files_header_title = "torrent management"
     template = loader.get_template('index.html')
     content = Context({
 	    'page_title': page_title,

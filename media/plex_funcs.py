@@ -17,7 +17,7 @@ import sys
 from media_automater.config import *
 import re
 
-__all__ = ["list_movies", "list_shows", "search_exist", "search_plex", "search_exist2"]
+__all__ = ["list_movies", "list_shows", "search_plex"]
 
 
 def list_movies():
@@ -82,34 +82,24 @@ def list_shows():
         print(sys.exc_info())
         return dict()
 
-# Use this for searching TV Shows
-def search_exist(search_type, structure, search_filters):
-    search_name = search_filters["name"].lower()
-    results = OrderedDict()
-    if search_type == "movie":
-        list_match = [movie for movie in structure if search_name in movie]
-        return list_match
-    elif search_type == "show":
-        result_set = structure.get(search_name, {}).get(search_filters["season"], {}).get(search_filters["episode"], {})
-        if result_set:
-            title = structure[search_name][search_filters["season"]][search_filters["episode"]]["title"]
-            media_id = structure[search_name][search_filters["season"]][search_filters["episode"]]["media_id"]
-            results[title] = dict( title = title, summary = structure[search_name][search_filters["season"]][search_filters["episode"]]["summary"], media_id = media_id )
-            return results
-        result_set = structure.get(search_name, {}).get(search_filters["season"], {}).get(search_filters["season"], {})
-        if result_set:
-            return result_set
-
 
 # New TV Show search using Plex HTTP API
-def search_exist2(search_type, search):
+def search_plex(search_type, search):
+    # Get the key mapping for sections
+    search_query = '/library/sections/'
+    xml_sections = minidom.parse(urlopen(PLEX_URL + search_query))
+    sections_results = xml_sections.getElementsByTagName('Directory')
+    key_mapping = dict()
+
+    for section in sections_results:
+        key_mapping[section.getAttribute('type')] = section.getAttribute('key')
     if search_type == 'movie':
-        search_query = '/library/sections/1/search?'
+        search_query = '/library/sections/%s/search?' % key_mapping[search_type]
         get_data = urlencode({'type': '1', 'query': search['search']})
         xml_section = minidom.parse(urlopen(PLEX_URL + search_query + get_data))
         search_results = xml_section.getElementsByTagName('Video')
     elif search_type == 'show':
-        search_query = '/library/sections/2/search?'
+        search_query = '/library/sections/%s/search?' % key_mapping[search_type]
         get_data = urlencode({'type': '2', 'query': search['search']})
         xml_section = minidom.parse(urlopen(PLEX_URL + search_query + get_data))
         directories = xml_section.getElementsByTagName('Directory')
@@ -153,26 +143,6 @@ def search_exist2(search_type, search):
         return_results.append(video_dict)
     return return_results
 
-
-# Use this for searching Movies
-def search_plex(search_filter):
-    get_data = urlencode({ 'query' : search_filter })
-    xml_section = minidom.parse(urlopen(PLEX_URL + '/search?%s' % get_data))
-    videos = xml_section.getElementsByTagName('Video')
-
-    results = OrderedDict()
-    for video in videos:
-        video_title = video.getAttribute('title')
-        video_year = video.getAttribute('year')
-        video_summary = video.getAttribute('summary')
-        video_type = video.getAttribute('type')
-        video_id = video.getAttribute('ratingKey')
-
-        # Ignore tv show results for now, another searching mechanism
-        if video_type == "movie":
-            results[video_title + ' ' + video_year] = dict( summary = video_summary, media_id = video_id, title = video_title + ' ' + video_year)
-
-    return results
 
 if __name__ == '__main__':
     #movies = list_movies()
