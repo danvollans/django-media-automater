@@ -1,34 +1,3 @@
-function parse_torrent(filename) {
-    var show_reg = /(.*)[ .][sS](\d{1,2})[eE](\d{1,2})[ .a-zA-Z]*(\d{3,4}p)?/;
-    var movie_reg = /(.+)?(\d{4})([ .a-zA-Z]*)?/
-    //if not parsed:
-    //    parsed = re.findall(r"""(.*?[ .]\d{4})[ .a-zA-Z]*(\d{3,4}p)?""", file_name, re.VERBOSE)
-    //alert(filename.match(show_reg).splice(0, 1));
-
-    // Check if torrent already exists
-    var parsed_torrent = filename.match(show_reg);
-    if (parsed_torrent) {
-        var torrent_data = parsed_torrent.slice(1);
-        $('input[type=radio][value=show]').prop('checked', true);
-        $('#id_search_text').val(jQuery.trim(torrent_data[0].split('.').join(' ')));
-        $('#id_optional_season').val(parseInt(torrent_data[1]));
-        $('#id_optional_episode').val(parseInt(torrent_data[2]));
-
-        Dajaxice.media.search_media(search_callback, $('#search_form').serializeObject() );
-    }
-    else {
-        var parsed_torrent = filename.match(movie_reg);
-        if (parsed_torrent) {
-            var torrent_data = parsed_torrent.slice(1);
-            $('input[type=radio][value=movie]').prop('checked', true);
-            $('#id_search_text').val(jQuery.trim(torrent_data[0].split('.').join(' ').replace(/\[|\)|\]|\(/g, '')));
-
-            Dajaxice.media.search_media(search_callback, $('#search_form').serializeObject() );
-        }
-    }
-
-}
-
 function eachRecursive(data, element)
 {
     for (var data_key in data)
@@ -139,19 +108,17 @@ function torrent_callback(data){
                     class: 'panel-heading',
                     id: "torrent-" + key + '-heading'
                 }).appendTo( "#torrent-" + key );
-                $( "<h4/>", {
+                $( "<h3/>", {
                     text: value['title']
                 }).appendTo( '#torrent-' + key + '-heading');
                 $( "<div/>", {
                     class: "sub_element panel-body",
-                    id: "torrent-url-" + key
+                    id: "torrent-url-" + key,
+                    text: value['title']
                 }).appendTo( '#torrent-' + key );
 
                 // Add a link here to call the ajax request for transmission rpc
                 $( '<button class="btn btn-sm btn-info clicker" id="torrent-b-' + key + '">').appendTo( '#torrent-url-' + key ).html("Click to download").append( "</button></div></div>" );
-
-                // Add a button to call the search to see if it exists
-                $( '<button class="btn btn-sm btn-warning clicker" id="torrent-c-' + key + '">').appendTo( '#torrent-url-' + key ).html("Check if it already exists").append( "</button></div></div>" );
 
                 // Add the onclick event for transmission RPC
                 $( '#torrent-b-' + key).click(function() {
@@ -160,11 +127,6 @@ function torrent_callback(data){
                     $( '#torrent-b-' + key).addClass('btn-warning');
                     Dajaxice.media.transmission_torrent(transmission_callback, {'url': value['url'], 'id': 'torrent-b-' + key } );
                 });
-
-                // Add the onclick event for the checking of file existence
-                $('#torrent-c-' + key).click(function() {
-                    parse_torrent(value['title'])
-                })
 
             });
         }
@@ -189,6 +151,10 @@ function transmission_callback(data){
     }
 }
 
+function parse_torrent_callback(data) {
+    alert(JSON.stringify(data));
+}
+
 function files_callback(data){
     if (data.status == 'success') {
         var downloadLink = "https://cereal.whatbox.ca/private/files/";
@@ -206,7 +172,7 @@ function files_callback(data){
             for (var i = 0; i < length; i++) {
                 var filesSplit = value[i].split("/");
                 var fileName = filesSplit[filesSplit.length-1];
-                $( '#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="parse_torrent(\'' + fileName + '\');">Parse Torrent</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
+                $( '#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="Dajaxice.media.parse_torrent(parse_torrent_callback, { name: \'' + fileName + '\' } );">Parse Torrent</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
             }
         });
         $("#files_loader > div").tsort("",{attr:"id"});

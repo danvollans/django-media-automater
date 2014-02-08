@@ -27,3 +27,7 @@ class TorrentForm(forms.Form):
         self.helper.form_id = 'torrent_form'
 
     torrent_search_text = forms.CharField(label='Search Torrents', required=False, help_text="<p><i>ex. World War Z (720p / 1080p)</i></p><p><i>ex. Breaking Bad s01e02 720p</i></p>")
+
+    site_choices = [('Kickass', 'Kickass Torrents'), ('TorrentHound', 'TorrentHound')]
+
+    torrent_search_site = forms.ChoiceField(label='Torrent Site', required=True, help_text='<i>Torrent site to search</i>', choices=site_choices)
