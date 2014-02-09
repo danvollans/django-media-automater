@@ -166,7 +166,7 @@ function eachRecursive(data, element) {
         if (typeof data[data_key] === "object" && data[data_key] !== null) {
             // Create a new list group, and then an item that is another list group GROUP-CEPTION!
             // First display the title
-            var new_id = element.attr('id') + "-" + data_key.replace(" ", "-");
+            var new_id = element.attr('id') + "-" + data_key.replace(/\s|\(|\)/g, "-");
             $("<a/>", {
                 class: "list-group-item",
                 text: data_key,
