@@ -2,6 +2,7 @@ from __future__ import division
 import requests
 from media_automater.config import *
 import json
+from media_automater.config import *
 
 __all__ = ["add_download", "get_status"]
 
@@ -9,7 +10,7 @@ __all__ = ["add_download", "get_status"]
 def add_download(download_url, directory):
     request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
                                'method': 'aria2.addUri',
-                               'params': [[download_url], {'dir': directory}]})
+                               'params': [[download_url], {'dir': directory, 'http-user': TRANSMISSION_USER, 'http-passwd': TRANSMISSION_PASS}]})
 
     request = requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
     return request
