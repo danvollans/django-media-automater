@@ -29,6 +29,7 @@ def download_file(request):
     else:
         return json.dumps({'status': 'failure', 'data': download_request.status_code})
 
+
 @dajaxice_register(method='POST')
 def load_media(request):
     # Load the media from Plex
