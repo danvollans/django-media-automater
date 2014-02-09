@@ -10,7 +10,7 @@ __all__ = ["add_download", "get_status"]
 def add_download(download_url, directory):
     request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
                                'method': 'aria2.addUri',
-                               'params': [[download_url], {'dir': directory, 'http-user': TRANSMISSION_USER, 'http-passwd': TRANSMISSION_PASS}]})
+                               'params': [[download_url], {'dir': directory, 'http-user': TRANSMISSION_USER, 'http-passwd': TRANSMISSION_PASS, 'check-certificate': 'false'}]})
 
     request = requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
     return request
