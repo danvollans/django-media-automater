@@ -84,6 +84,9 @@
     <div>
         <button class="btn btn-success" type="button"  id="files_reloader" onclick="refresh_files(); return false;">Refresh File Listing...</button>
         <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Show Downloads</button>
+        <div id="files_loader" class="loader">
+
+        </div>
         <div id="downloads_loader" style="display:none;" class="loader">
                 <div id="downloads_active" class="loader panel panel-info">
                     <div class="panel-heading">
@@ -115,9 +118,6 @@
                         </ul>
                     </div>
                 </div>
-        </div>
-        <div id="files_loader" class="loader">
-
         </div>
     </div>
 </div>
