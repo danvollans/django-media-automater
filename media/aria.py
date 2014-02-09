@@ -1,6 +1,5 @@
 from __future__ import division
 import requests
-from media_automater.config import *
 import json
 from media_automater.config import *
 
