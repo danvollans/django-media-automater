@@ -13,10 +13,7 @@ def addDownload(download_url, directory):
                                'params': [[download_url], {'dir': directory}]})
 
     request = requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
-    if request.text:
-        return json.dumps({'status': 'success', 'data': request.text})
-    else:
-        return json.dumps({'status': 'failure', 'data': request.status_code})
+    return request
 
 
 def getStatus(download_id):

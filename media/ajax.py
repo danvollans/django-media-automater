@@ -16,14 +16,18 @@ from media.plex_funcs import *
 from media.aria import *
 
 
-@dajaxice_register(methiod='POST')
+@dajaxice_register(method='POST')
 def download_file(request):
     posted_json = request.POST.getlist('argv')
     posted_data = ast.literal_eval(posted_json[0])
     download_url = posted_data['url']
     location = posted_data['location']
+    download_request = addDownload(download_url, location)
 
-
+    if download_request.text:
+        return json.dumps({'status': 'success', 'data': download_request.text})
+    else:
+        return json.dumps({'status': 'failure', 'data': download_request.status_code})
 
 @dajaxice_register(method='POST')
 def load_media(request):
