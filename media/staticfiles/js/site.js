@@ -12,8 +12,14 @@ function download_file_callback(data) {
 function downloads_callback(data) {
     $('#active_panel_body').empty();
     $('#active_panel_body').html(JSON.stringify(data['active']));
+
     $('#stopped_panel_body').empty();
+    var stopped_data = data['stopped'];
+    for (var stopped_download in stopped_data) {
+        alert(stopped_data[stopped_download]['path']);
+    }
     $('#stopped_panel_body').html(JSON.stringify(data['stopped']));
+
     $('#waiting_panel_body').empty();
     $('#waiting_panel_body').html(JSON.stringify(data['waiting']));
 }
