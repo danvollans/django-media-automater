@@ -24,14 +24,13 @@ def load_media(request):
     return json.dumps({'movies': movies, 'shows': shows})
 
 
-# Ajax
 @dajaxice_register(method='POST')
 def download_file(request):
     posted_json = request.POST.getlist('argv')
     posted_data = ast.literal_eval(posted_json[0])
     download_url = posted_data['url']
     location = posted_data['location']
-    download_request = addDownload(download_url, location)
+    download_request = add_download(download_url, location)
 
     if download_request.text:
         return json.dumps({'status': 'success', 'data': download_request.text})
