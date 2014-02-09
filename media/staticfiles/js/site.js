@@ -21,7 +21,7 @@ function downloads_callback(data) {
             var total_length = stopped_data[stopped_download]['files'][stopped_file]['length'];
             var completed_length = stopped_data[stopped_download]['files'][stopped_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
-            var progress_bar = '<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' + percentage + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + percentage + '%"><span class="sr-only">' + percentage + ' Complete (success)</span></div>';
+            var progress_bar = '<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' + percentage + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + percentage + '%"><span class="sr-only">' + percentage + '% Complete (success)</span></div></div>';
             $('#stopped_panel_body_ul').append('<li>' + download_file + progress_bar + '</li>');
         }
     }
