@@ -4,13 +4,19 @@ from media_automater.config import *
 import json
 from time import sleep
 
+__all__ = ["addDownload", "getStatus"]
+
 
 def addDownload(download_url, directory):
     request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
                                'method': 'aria2.addUri',
                                'params': [[download_url], {'dir': directory}]})
 
-    return requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
+    request = requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
+    if request.text:
+        return json.dumps({'status': 'success', 'data': request.text})
+    else:
+        return json.dumps({'status': 'failure', 'data': request.status_code})
 
 
 def getStatus(download_id):

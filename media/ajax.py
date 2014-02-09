@@ -13,6 +13,16 @@ import operator
 from collections import OrderedDict
 from media_automater.config import *
 from media.plex_funcs import *
+from media.aria import *
+
+
+@dajaxice_register(methiod='POST')
+def download_file(request):
+    posted_json = request.POST.getlist('argv')
+    posted_data = ast.literal_eval(posted_json[0])
+    download_url = posted_data['url']
+    location = posted_data['location']
+
 
 
 @dajaxice_register(method='POST')

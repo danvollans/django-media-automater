@@ -1,24 +1,10 @@
 // AJAX For Downloader Services
 function addDownload(download_url, location) {
-    $.ajax({
-        type: "POST",
-        url: "http://192.168.1.76:6800/jsonrpc",
-        // The key needs to match your method's input parameter (case-sensitive).
-        data: JSON.stringify({'jsonrpc': '2.0', 'id': 'qwer',
-            'method': 'aria2.addUri',
-            'params': [
-                [download_url],
-                {'dir': $('#' + location).val()}
-            ]}),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            alert(data);
-        },
-        failure: function (errMsg) {
-            alert(errMsg);
-        }
-    });
+    Dajaxice.media.download_file(download_file_callback, {'url': download_url, 'location': $('#' + location).val()});
+}
+
+function download_file_callback(data) {
+    alert(data);
 }
 
 function parse_torrent(filename) {
