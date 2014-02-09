@@ -4,7 +4,7 @@ function addDownload(download_url, location) {
 }
 
 function download_file_callback(data) {
-    if (data['status'] == 'success') {
+    if (data['status'] === 'success') {
         downloads_information();
     }
 }
@@ -41,7 +41,6 @@ function downloads_callback(data) {
             }).appendTo($(holder_bar));
         }
     }
-    //$('#stopped_panel_body').html(JSON.stringify(data['stopped']));
 
     $('#waiting_panel_body_ul').empty();
     $('#waiting_panel_body_ul').html(JSON.stringify(data['waiting']));
@@ -105,7 +104,7 @@ function parse_torrent(filename) {
 
 function eachRecursive(data, element) {
     for (var data_key in data) {
-        if (typeof data[data_key] == "object" && data[data_key] !== null) {
+        if (typeof data[data_key] === "object" && data[data_key] !== null) {
             // Create a new list group, and then an item that is another list group GROUP-CEPTION!
             // First display the title
             var new_id = element.attr('id') + "-" + data_key.replace(" ", "-");
@@ -134,7 +133,7 @@ function eachRecursive(data, element) {
                 text: data[data_key]
             }).appendTo(element);
             // If this is a title, append the name to to parent.
-            if (data_key == 'title') {
+            if (data_key === 'title') {
                 var parent_anchor = end_element.parent().parent().parent().prev("a.list-group-item");
                 parent_anchor.text(parent_anchor.text() + " - " + data[data_key]);
             }
@@ -174,10 +173,10 @@ function load_media_callback(data) {
 }
 
 function search_callback(data) {
-    if (data.status == 'success') {
+    if (data.status === 'success') {
         $('#data_loader').empty();
         // Check for empty results
-        if (Object.keys(data['data']).length == 0) {
+        if (Object.keys(data['data']).length === 0) {
             $('#data_loader').html("No matching media. :-(");
         }
         else {
@@ -195,10 +194,10 @@ function search_callback(data) {
     }
 }
 function torrent_callback(data) {
-    if (data.status == 'success') {
+    if (data.status === 'success') {
         $('#torrent_loader').html("");
         // Check for empty results
-        if (Object.keys(data['data']).length == 0) {
+        if (Object.keys(data['data']).length === 0) {
             $('#torrent_loader').html("No search results. :-(");
         }
         else {
@@ -248,7 +247,7 @@ function torrent_callback(data) {
     }
 }
 function transmission_callback(data) {
-    if (data.status == 'success') {
+    if (data.status === 'success') {
         $('#' + data.id).removeClass('btn-warning');
         $('#' + data.id).addClass('btn-success');
         $('#' + data.id).html(data.data)
@@ -261,12 +260,12 @@ function transmission_callback(data) {
 }
 
 function files_callback(data) {
-    if (data.status == 'success') {
+    if (data.status === 'success') {
         var downloadLink = "https://cereal.whatbox.ca/private/files/";
         $('#files_loader').empty();
         $.each(data['data'], function (key, value) {
             // Find out if the current div exists, for this key
-            if ($('#torrent-container-' + key).length == 0) {
+            if ($('#torrent-container-' + key).length === 0) {
                 $('#files_loader').append('<div id="torrent-container-' + key + '"></div>');
                 // Add onclick delete function here
                 $('#torrent-container-' + key).append('<h3>Torrent ' + key + ' - <button type="button" class="btn btn-xs btn-danger" onclick="delete_torrent(' + key + '); return false;">Delete Torrent and Data</button></h3>');
@@ -295,7 +294,7 @@ function delete_torrent(torrent_id) {
 
 function delete_torrent_callback(data) {
     var torrent_id = data['id'];
-    if (data.status == 'success') {
+    if (data.status === 'success') {
         $('#torrent-container-' + torrent_id).html('<h3>Torrent ' + torrent_id + '</h3><p>Successfully deleted torrent ' + torrent_id + '.</p>');
     }
     else {
