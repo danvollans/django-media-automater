@@ -10,6 +10,7 @@ function download_file_callback(data) {
 }
 
 function downloads_callback(data) {
+    alert(JSON.stringify(data));
     $('#active_panel_body_ul').empty();
     $('#active_panel_body_ul').html(JSON.stringify(data['active']));
 
