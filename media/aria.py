@@ -3,7 +3,7 @@ import requests
 import json
 from media_automater.config import *
 
-__all__ = ["add_download", "tell_active", "tell_stopped", "tell_waiting" "get_global_stat", "downloads_information"]
+__all__ = ["add_download", "tell_active", "tell_stopped", "tell_waiting", "get_global_stat", "downloads_information"]
 
 
 def add_download(download_url, directory):
