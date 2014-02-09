@@ -30,9 +30,15 @@ def tell_active():
 
 
 def tell_stopped():
+    global_query = get_global_stat()
+    if global_query.text:
+        global_dict = json.loads(global_query.text)
+        max_stopped = int(global_dict['result']['numStopped'])
+    else:
+        max_stopped = 1
     request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
                                'method': 'aria2.tellStopped',
-                               'params': [0, 2]})
+                               'params': [0, max_stopped]})
 
     return requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
 
@@ -65,16 +71,4 @@ def downloads_information():
 
 
 if __name__ == '__main__':
-
-    new_request = add_download('http://ipv4.download.thinkbroadband.com/512MB.zip', '/mnt/nas/downloads')
-    response = json.loads(new_request.text)
-    if response['result']:
-        status = get_status(response['result'])
-        status_response = json.loads(status.text)
-        if status_response['result']['completedLength'] != '0' and status_response['result']['totalLength'] != '0':
-            print(status_response['result']['completedLength'] + ' / ' + status_response['result']['totalLength'])
-            percent = format((int(status_response['result']['completedLength']) / int(status_response['result']['totalLength'])) * 100, '.2f')
-            print(str(percent) + '%')
-
-
-
+    print('Loaded')
