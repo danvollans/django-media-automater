@@ -2,7 +2,6 @@ from __future__ import division
 import requests
 from media_automater.config import *
 import json
-from time import sleep
 
 __all__ = ["addDownload", "getStatus"]
 
@@ -28,7 +27,6 @@ if __name__ == '__main__':
     new_request = addDownload('http://ipv4.download.thinkbroadband.com/512MB.zip', '/mnt/nas/downloads')
     response = json.loads(new_request.text)
     if response['result']:
-        sleep(16)
         status = getStatus(response['result'])
         status_response = json.loads(status.text)
         if status_response['result']['completedLength'] != '0' and status_response['result']['totalLength'] != '0':
