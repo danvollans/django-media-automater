@@ -16,7 +16,9 @@ function downloads_callback(data) {
     $('#stopped_panel_body').empty();
     var stopped_data = data['stopped'];
     for (var stopped_download in stopped_data) {
-        alert(stopped_data[stopped_download]['path']);
+        for (var stopped_file in stopped_data[stopped_download]['files']) {
+            alert(stopped_data[stopped_download]['files'][stopped_file]['path']);
+        }
     }
     $('#stopped_panel_body').html(JSON.stringify(data['stopped']));
 
