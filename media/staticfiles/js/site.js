@@ -75,7 +75,7 @@ function downloads_callback(data) {
     }
 
     $('#waiting_panel_body_ul').empty();
-    var stopped_data = data['waiting'];
+    var waiting_data = data['waiting'];
     for (var waiting_download in waiting_data) {
         for (var waiting_file in waiting_data[waiting_download]['files']) {
             var download_file = waiting_data[waiting_download]['files'][waiting_file]['path'];
