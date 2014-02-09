@@ -17,7 +17,11 @@ function downloads_callback(data) {
     var stopped_data = data['stopped'];
     for (var stopped_download in stopped_data) {
         for (var stopped_file in stopped_data[stopped_download]['files']) {
-            $('#stopped_panel_body_ul').append('<li>' + stopped_data[stopped_download]['files'][stopped_file]['path'] + '</li>');
+            var download_file = stopped_data[stopped_download]['files'][stopped_file]['path'];
+            var total_length = stopped_data[stopped_download]['files'][stopped_file]['length'];
+            var completed_length = stopped_data[stopped_download]['files'][stopped_file]['completedLength'];
+            var percentage = ((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
+            $('#stopped_panel_body_ul').append('<li>' + download_file + ' - ' + completed_length + ' / ' + completed_length + ' = ' + percentage + '</li>');
         }
     }
     //$('#stopped_panel_body').html(JSON.stringify(data['stopped']));
