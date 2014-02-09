@@ -9,6 +9,10 @@ function download_file_callback(data) {
     }
 }
 
+function refresh_downloads() {
+    Dajaxice.media.load_downloads(downloads_callback);
+}
+
 function downloads_callback(data) {
     alert(JSON.stringify(data));
     $('#active_panel_body_ul').empty();
@@ -306,5 +310,5 @@ function delete_torrent_callback(data) {
 
 $(document).ready(function () {
     var timerId = setInterval(refresh_files, 300000);
-    var downloadTimer = setInterval(Dajaxice.media.load_downloads(downloads_callback), 6000);
+    var downloadTimer = setInterval(refresh_downloads, 6000);
 });
