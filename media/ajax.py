@@ -16,6 +16,7 @@ from media.plex_funcs import *
 from media.aria import *
 
 
+# Ajax
 @dajaxice_register(method='POST')
 def download_file(request):
     posted_json = request.POST.getlist('argv')
