@@ -14,7 +14,7 @@ function refresh_downloads() {
 }
 
 function downloads_callback(data) {
-    $('#active_panel_body_ul').empty();
+    $('#active_panel_body').empty();
     var active_data = data['active'];
     for (var active_download in active_data) {
         for (var active_file in active_data[active_download]['files']) {
@@ -22,11 +22,9 @@ function downloads_callback(data) {
             var total_length = active_data[active_download]['files'][active_file]['length'];
             var completed_length = active_data[active_download]['files'][active_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
-            var li_holder = $('<li/>', {
-            }).appendTo('#active_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo($(li_holder));
+            }).appendTo('#active_panel_body');
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
@@ -42,7 +40,7 @@ function downloads_callback(data) {
         }
     }
 
-    $('#stopped_panel_body_ul').empty();
+    $('#stopped_panel_body').empty();
     var stopped_data = data['stopped'];
     for (var stopped_download in stopped_data) {
         for (var stopped_file in stopped_data[stopped_download]['files']) {
@@ -50,11 +48,9 @@ function downloads_callback(data) {
             var total_length = stopped_data[stopped_download]['files'][stopped_file]['length'];
             var completed_length = stopped_data[stopped_download]['files'][stopped_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
-            var li_holder = $('<li/>', {
-            }).appendTo('#stopped_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo($(li_holder));
+            }).appendTo('#stopped_panel_body');
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-success",
                 role: "progressbar",
@@ -70,7 +66,7 @@ function downloads_callback(data) {
         }
     }
 
-    $('#waiting_panel_body_ul').empty();
+    $('#waiting_panel_body').empty();
     var waiting_data = data['waiting'];
     for (var waiting_download in waiting_data) {
         for (var waiting_file in waiting_data[waiting_download]['files']) {
@@ -78,11 +74,9 @@ function downloads_callback(data) {
             var total_length = waiting_data[waiting_download]['files'][waiting_file]['length'];
             var completed_length = waiting_data[waiting_download]['files'][waiting_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
-            var li_holder = $('<li/>', {
-            }).appendTo('#waiting_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo($(li_holder));
+            }).appendTo('#waiting_panel_body');
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
