@@ -15,7 +15,7 @@ function refresh_downloads() {
 
 function downloads_callback(data) {
     $('#active_panel_body_ul').empty();
-    var active_data = data['stopped'];
+    var active_data = data['active'];
     for (var active_download in active_data) {
         for (var active_file in active_data[active_download]['files']) {
             var download_file = active_data[active_download]['files'][active_file]['path'];
@@ -23,7 +23,7 @@ function downloads_callback(data) {
             var completed_length = active_data[active_download]['files'][active_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                text: download_file
+                text: '<b' + download_file + '</b>'
             }).appendTo('#active_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
@@ -52,7 +52,7 @@ function downloads_callback(data) {
             var completed_length = stopped_data[stopped_download]['files'][stopped_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                text: download_file
+                text: '<b>' + download_file + '</b>'
             }).appendTo('#stopped_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
@@ -73,6 +73,7 @@ function downloads_callback(data) {
     }
 
     $('#waiting_panel_body_ul').empty();
+    var stopped_data = data['waiting'];
     for (var waiting_download in waiting_data) {
         for (var waiting_file in waiting_data[waiting_download]['files']) {
             var download_file = waiting_data[waiting_download]['files'][waiting_file]['path'];
@@ -80,7 +81,7 @@ function downloads_callback(data) {
             var completed_length = waiting_data[waiting_download]['files'][waiting_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                text: download_file
+                text: '<b>' + download_file + '</b>'
             }).appendTo('#waiting_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
@@ -360,5 +361,5 @@ function delete_torrent_callback(data) {
 
 $(document).ready(function () {
     var timerId = setInterval(refresh_files, 300000);
-    var downloadTimer = setInterval(refresh_downloads, 6000);
+    var downloadTimer = setInterval(refresh_downloads, 2000);
 });
