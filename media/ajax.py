@@ -101,7 +101,7 @@ def refresh_files(request):
     except:
         return json.dumps({ 'status': 'failure' })
 
-    regex_match = r"\.(avi|mkv|mp4|wmv)$"
+    regex_match = r"\.(avi|mkv|mp4|wmv|iso)$"
     files = OrderedDict()
     for torrent in torrents:
         torrent_files = torrent.files()
