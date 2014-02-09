@@ -1,4 +1,4 @@
-// AJAX For Downloader Service
+// AJAX For Downloader Services
 function addDownload(element) {
     $.ajax({
         type: "POST",
