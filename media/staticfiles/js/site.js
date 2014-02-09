@@ -1,6 +1,6 @@
 // AJAX For Downloader Services
 function addDownload(download_url, location) {
-    Dajaxice.media.download_file(download_file_callback, {'url': download_url, 'location': $('#' + location).val()});
+    Dajaxice.media.transfer_file(download_file_callback, {'url': download_url, 'location': $('#' + location).val()});
 }
 
 function download_file_callback(data) {

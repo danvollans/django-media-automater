@@ -25,7 +25,7 @@ def load_media(request):
 
 
 @dajaxice_register(method='POST')
-def download_file(request):
+def transfer_file(request):
     posted_json = request.POST.getlist('argv')
     posted_data = ast.literal_eval(posted_json[0])
     download_url = posted_data['url']
