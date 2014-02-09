@@ -1,3 +1,21 @@
+// AJAX For Downloader Service
+function addDownload(element) {
+    $.ajax({
+        type: "POST",
+        url: "http://192.168.1.76:6800/jsonrpc",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify({'jsonrpc': '2.0', 'id': 'qwer',
+                               'method': 'aria2.addUri',
+                               'params': [[element.text()], {'dir': '/mnt/nas/downloads'}]}),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){alert(data);},
+        failure: function(errMsg) {
+            alert(errMsg);
+        }
+    });
+}
+
 function parse_torrent(filename) {
     var show_reg = /(.*)[ .][sS](\d{1,2})[eE](\d{1,2})[ .a-zA-Z]*(\d{3,4}p)?/;
     var movie_reg = /(.+)?(\d{4})([ .a-zA-Z]*)?/
@@ -206,7 +224,7 @@ function files_callback(data){
             for (var i = 0; i < length; i++) {
                 var filesSplit = value[i].split("/");
                 var fileName = filesSplit[filesSplit.length-1];
-                $( '#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="parse_torrent(\'' + fileName + '\');">Parse Torrent</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
+                $( '#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="parse_torrent(\'' + fileName + '\');">Parse Torrent</button><a onclick="javascript:addDownload($(this))" id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
             }
         });
         $("#files_loader > div").tsort("",{attr:"id"});
