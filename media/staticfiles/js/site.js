@@ -4,7 +4,7 @@ function addDownload(download_url, location) {
 }
 
 function download_file_callback(data) {
-    alert(data);
+    alert(JSON.stringify(data));
 }
 
 function parse_torrent(filename) {
