@@ -7,6 +7,32 @@ function download_file_callback(data) {
     alert(JSON.stringify(data));
 }
 
+function guess_location(filename, textbox) {
+    var show_reg = /(.*)[ .][sS](\d{1,2})[eE](\d{1,2})[ .a-zA-Z]*(\d{3,4}p)?/;
+    var movie_reg = /(.+)?(\d{4})([ .a-zA-Z]*)?/
+    //if not parsed:
+    //    parsed = re.findall(r"""(.*?[ .]\d{4})[ .a-zA-Z]*(\d{3,4}p)?""", file_name, re.VERBOSE)
+    //alert(filename.match(show_reg).splice(0, 1));
+
+    // Check if torrent already exists
+    var parsed_torrent = filename.match(show_reg);
+    if (parsed_torrent) {
+        var torrent_data = parsed_torrent.slice(1);
+        var show_name = jQuery.trim(torrent_data[0].split('.').join(' '));
+        var show_season = torrent_data[1];
+        var show_episode = torrent_data[2];
+        $('#' + textbox).val('TV Shows/' + show_name + '/Season ' + parseInt(show_season).toString() + '/');
+    }
+    else {
+        var parsed_torrent = filename.match(movie_reg);
+        if (parsed_torrent) {
+            var torrent_data = parsed_torrent.slice(1);
+            var movie_name = jQuery.trim(torrent_data[0].split('.').join(' ').replace(/\[|\)|\]|\(/g, ''));
+            $('#' + textbox).val('Movies/' + movie_name + '/');
+        }
+    }
+}
+
 function parse_torrent(filename) {
     var show_reg = /(.*)[ .][sS](\d{1,2})[eE](\d{1,2})[ .a-zA-Z]*(\d{3,4}p)?/;
     var movie_reg = /(.+)?(\d{4})([ .a-zA-Z]*)?/
@@ -35,7 +61,6 @@ function parse_torrent(filename) {
             Dajaxice.media.search_media(search_callback, $('#search_form').serializeObject());
         }
     }
-
 }
 
 function eachRecursive(data, element) {
@@ -212,8 +237,8 @@ function files_callback(data) {
             for (var i = 0; i < length; i++) {
                 var filesSplit = value[i].split("/");
                 var fileName = filesSplit[filesSplit.length - 1];
-                $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="addDownload(\'' + downloadLink + value[i] + '\',\'torrent-' + key + '-' + i + '-location\');">Parse Torrent</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
-                $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="parse_torrent(\'' + fileName + '\');">Parse Torrent</button><input id="torrent-' + key + '-' + i + '-location" type="text" class="textinput textInput form-control"></input></div>');
+                $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-success" onclick="addDownload(\'' + downloadLink + value[i] + '\',\'torrent-' + key + '-' + i + '-location\');">Download File</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
+                $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="guess_location(\'' + fileName + '\', \'torrent-' + key + '-' + i + '-location\');">Guess Location</button><input id="torrent-' + key + '-' + i + '-location" type="text" class="textinput textInput form-control"></input></div>');
             }
         });
         $("#files_loader > div").tsort("", {attr: "id"});

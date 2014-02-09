@@ -33,7 +33,7 @@ def transfer_file(request):
     posted_data = ast.literal_eval(posted_json[0])
     download_url = posted_data['url']
     location = posted_data['location']
-    download_request = add_download(download_url, location)
+    download_request = add_download(download_url, ARIA_LOCATION + location)
 
     if download_request.text:
         return json.dumps({'status': 'success', 'data': download_request.text})
