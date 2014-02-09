@@ -5,7 +5,7 @@ function addDownload(download_url, location) {
 
 function download_file_callback(data) {
     if (data['status'] === 'success') {
-        downloads_information();
+        refresh_downloads();
     }
 }
 
@@ -23,7 +23,8 @@ function downloads_callback(data) {
             var completed_length = active_data[active_download]['files'][active_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                text: '<b' + download_file + '</b>'
+                style: "font-weight: bold",
+                text: download_file
             }).appendTo('#active_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
@@ -52,7 +53,8 @@ function downloads_callback(data) {
             var completed_length = stopped_data[stopped_download]['files'][stopped_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                text: '<b>' + download_file + '</b>'
+                style: "font-weight: bold",
+                text: download_file
             }).appendTo('#stopped_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
@@ -81,7 +83,8 @@ function downloads_callback(data) {
             var completed_length = waiting_data[waiting_download]['files'][waiting_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                text: '<b>' + download_file + '</b>'
+                style: "font-weight: bold",
+                text: download_file
             }).appendTo('#waiting_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
