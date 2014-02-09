@@ -4,7 +4,13 @@ function addDownload(download_url, location) {
 }
 
 function download_file_callback(data) {
-    alert(JSON.stringify(data));
+    if (data['status'] == 'success') {
+        downloads_information();
+    }
+}
+
+function downloads_callback(data) {
+    $('#downloads_loader').html(JSON.stringify(data));
 }
 
 function guess_location(filename, textbox) {

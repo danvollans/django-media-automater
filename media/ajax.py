@@ -16,8 +16,9 @@ from media_automater.config import *
 
 
 @dajaxice_register(method='POST')
-def test(request):
-    return request
+def load_downloads(request):
+    downloads = downloads_information()
+    return json.dumps(downloads)
 
 @dajaxice_register(method='POST')
 def load_media(request):
