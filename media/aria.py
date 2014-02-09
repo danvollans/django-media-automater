@@ -4,7 +4,7 @@ from media_automater.config import *
 import json
 from media_automater.config import *
 
-__all__ = ["add_download", "get_status", "tell_active", "tell_stopped", "tell_waiting" "get_global_stat", "downloads_information"]
+__all__ = ["add_download", "tell_active", "tell_stopped", "tell_waiting" "get_global_stat", "downloads_information"]
 
 
 def add_download(download_url, directory):
@@ -66,8 +66,6 @@ def downloads_information():
 
 
 if __name__ == '__main__':
-    print(downloads_information())
-    exit()
 
     new_request = add_download('http://ipv4.download.thinkbroadband.com/512MB.zip', '/mnt/nas/downloads')
     response = json.loads(new_request.text)
