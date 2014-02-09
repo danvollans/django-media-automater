@@ -3,6 +3,7 @@ __author__ = 'djvol_000'
 import json
 from dajaxice.decorators import dajaxice_register
 from media.plex_funcs import *
+from media.aria import *
 from media.forms import SearchForm, TorrentForm
 from media.torrent_rss import parse_rss
 import ast
@@ -12,8 +13,6 @@ import re
 import operator
 from collections import OrderedDict
 from media_automater.config import *
-from media.plex_funcs import *
-from media.aria import *
 
 
 @dajaxice_register(method='POST')
