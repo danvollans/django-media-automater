@@ -53,8 +53,7 @@ function downloads_callback(data) {
             var completed_length = stopped_data[stopped_download]['files'][stopped_file]['completedLength'];
             var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
             var li_holder = $('<li/>', {
-                style: "font-weight: bold",
-                text: download_file
+                style: "font-weight: bold"
             }).appendTo('#stopped_panel_body_ul');
             var holder = $('<div/>', {
                 class: "progress"
@@ -68,8 +67,8 @@ function downloads_callback(data) {
                 style: "width: " + percentage + "%"
             }).appendTo($(holder));
             $('<span/>', {
-                class: "sr-only",
-                text: percentage + '% Complete (success)'
+                class: "show",
+                text: download_file.split('/')[-1]
             }).appendTo($(holder_bar));
         }
     }
