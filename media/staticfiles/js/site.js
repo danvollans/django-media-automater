@@ -10,20 +10,20 @@ function download_file_callback(data) {
 }
 
 function downloads_callback(data) {
-    $('#active_panel_body').empty();
-    $('#active_panel_body').html(JSON.stringify(data['active']));
+    $('#active_panel_body_ul').empty();
+    $('#active_panel_body_ul').html(JSON.stringify(data['active']));
 
-    $('#stopped_panel_body').empty();
+    $('#stopped_panel_body_ul').empty();
     var stopped_data = data['stopped'];
     for (var stopped_download in stopped_data) {
         for (var stopped_file in stopped_data[stopped_download]['files']) {
             $('#stopped_panel_body_ul').append('<li>' + stopped_data[stopped_download]['files'][stopped_file]['path'] + '</li>');
         }
     }
-    $('#stopped_panel_body').html(JSON.stringify(data['stopped']));
+    //$('#stopped_panel_body').html(JSON.stringify(data['stopped']));
 
-    $('#waiting_panel_body').empty();
-    $('#waiting_panel_body').html(JSON.stringify(data['waiting']));
+    $('#waiting_panel_body_ul').empty();
+    $('#waiting_panel_body_ul').html(JSON.stringify(data['waiting']));
 }
 
 function guess_location(filename, textbox) {
