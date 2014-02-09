@@ -37,7 +37,13 @@
             Dajaxice.media.refresh_files(files_callback);
         }
         function downloads_information() {
-            Dajaxice.media.load_downloads(downloads_callback);
+            if ($('#downloads_reloader').html() == 'Show Downloads') {
+                $('#downloads_reloader').html('Hide Downloads');
+            }
+            else {
+                $('#downloads_reloader').html('Show Downloads');
+            }
+            $('#downloads_loader').toggle();
         }
     </script>
     {% dajaxice_js_import %}
@@ -78,8 +84,8 @@
     <h1>{{ files_header_title }}</h1>
     <div>
         <button class="btn btn-success" type="button"  id="files_reloader" onclick="refresh_files(); return false;">Refresh File Listing...</button>
-        <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Refresh Downloads...</button>
-        <div id="downloads_loader" class="loader">
+        <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Show Downloads</button>
+        <div id="downloads_loader" style="display:none;" class="loader">
                 <div id="downloads_active" class="loader panel panel-info">
                     <div class="panel-heading">
                         <h4 class="panel-title">Active Downloads</h4>
