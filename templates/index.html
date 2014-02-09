@@ -82,8 +82,30 @@
         <button class="btn btn-success" type="button"  id="files_reloader" onclick="refresh_files(); return false;">Refresh File Listing...</button>
         <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Refresh Downloads...</button>
         <div id="downloads_loader" class="loader">
+                <div id="downloads_active" class="loader panel panel-info">
+                    <div class="panel panel-heading">
+                        <h4>Active Downloads</h4>
+                    </div>
+                    <div id="active_panel_body" class="panel panel-body">
 
+                    </div>
+                </div>
+                <div id="downloads_stopped" class="loader">
+                    <div class="panel panel-heading">
+                        <h4>Finished Downloads</h4>
+                    </div>
+                    <div id="stopped_panel_body" class="panel panel-body">
 
+                    </div>
+                </div>
+                <div id="downloads_waiting" class="loader">
+                    <div class="panel panel-heading">
+                        <h4>Pending Downloads</h4>
+                    </div>
+                    <div id="waiting_panel_body" class="panel panel-body">
+
+                    </div>
+                </div>
         </div>
         <div id="files_loader" class="loader">
 
