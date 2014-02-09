@@ -16,6 +16,10 @@ from media_automater.config import *
 
 
 @dajaxice_register(method='POST')
+def test(request):
+    return request
+
+@dajaxice_register(method='POST')
 def load_media(request):
     # Load the media from Plex
     movies = list_movies()
