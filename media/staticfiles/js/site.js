@@ -226,7 +226,7 @@ function files_callback(data) {
             for (var i = 0; i < length; i++) {
                 var filesSplit = value[i].split("/");
                 var fileName = filesSplit[filesSplit.length - 1];
-                $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="addDownload(' + downloadLink + value[i] + ',"torrent-' + key + '-' + i + '-location");">Parse Torrent</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
+                $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="addDownload(\'' + downloadLink + value[i] + '\',\'torrent-' + key + '-' + i + '-location\');">Parse Torrent</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
                 $('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="parse_torrent(\'' + fileName + '\');">Parse Torrent</button><input id="torrent-' + key + '-' + i + '-location" type="text" class="textinput textInput form-control"></input></div>');
             }
         });
