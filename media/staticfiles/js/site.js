@@ -11,11 +11,11 @@ function download_file_callback(data) {
 
 function downloads_callback(data) {
     $('#active_panel_body').empty();
-    $('#active_panel_body').html(data['active']);
+    $('#active_panel_body').html(JSON.stringify(data['active']));
     $('#stopped_panel_body').empty();
-    $('#stopped_panel_body').html(data['stopped']);
+    $('#stopped_panel_body').html(JSON.stringify(data['stopped']));
     $('#waiting_panel_body').empty();
-    $('#waiting_panel_body').html(data['waiting']);
+    $('#waiting_panel_body').html(JSON.stringify(data['waiting']));
 }
 
 function guess_location(filename, textbox) {
