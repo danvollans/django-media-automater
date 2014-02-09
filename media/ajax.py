@@ -16,6 +16,14 @@ from media.plex_funcs import *
 from media.aria import *
 
 
+@dajaxice_register(method='POST')
+def load_media(request):
+    # Load the media from Plex
+    movies = list_movies()
+    shows = list_shows()
+    return json.dumps({'movies': movies, 'shows': shows})
+
+
 # Ajax
 @dajaxice_register(method='POST')
 def download_file(request):
@@ -29,14 +37,6 @@ def download_file(request):
         return json.dumps({'status': 'success', 'data': download_request.text})
     else:
         return json.dumps({'status': 'failure', 'data': download_request.status_code})
-
-
-@dajaxice_register(method='POST')
-def load_media(request):
-    # Load the media from Plex
-    movies = list_movies()
-    shows = list_shows()
-    return json.dumps({'movies': movies, 'shows': shows})
 
 
 @dajaxice_register(method='POST')
