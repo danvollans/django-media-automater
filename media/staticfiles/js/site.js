@@ -305,5 +305,5 @@ function delete_torrent_callback(data) {
 
 $(document).ready(function () {
     var timerId = setInterval(refresh_files, 300000);
-    var downloadtimer = setInterval(Dajaxice.media.load_downloads(downloads_callback), 3000);
+    var downloadTimer = setInterval(Dajaxice.media.load_downloads(downloads_callback), 6000);
 });
