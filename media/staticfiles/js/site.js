@@ -14,9 +14,34 @@ function refresh_downloads() {
 }
 
 function downloads_callback(data) {
-    alert(JSON.stringify(data));
     $('#active_panel_body_ul').empty();
-    $('#active_panel_body_ul').html(JSON.stringify(data['active']));
+    var active_data = data['stopped'];
+    for (var active_download in active_data) {
+        for (var active_file in active_data[active_download]['files']) {
+            var download_file = active_data[active_download]['files'][active_file]['path'];
+            var total_length = active_data[active_download]['files'][active_file]['length'];
+            var completed_length = active_data[active_download]['files'][active_file]['completedLength'];
+            var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
+            var li_holder = $('<li/>', {
+                text: download_file
+            }).appendTo('#active_panel_body_ul');
+            var holder = $('<div/>', {
+                class: "progress"
+            }).appendTo($(li_holder));
+            var holder_bar = $('<div/>', {
+                class: "progress-bar progress-bar-info",
+                role: "progressbar",
+                "aria-valuenow": percentage,
+                "aria-valuemin": "0",
+                "aria-valuemax": "100",
+                style: "width: " + percentage + "%"
+            }).appendTo($(holder));
+            $('<span/>', {
+                class: "sr-only",
+                text: percentage + '% Complete'
+            }).appendTo($(holder_bar));
+        }
+    }
 
     $('#stopped_panel_body_ul').empty();
     var stopped_data = data['stopped'];
@@ -48,7 +73,32 @@ function downloads_callback(data) {
     }
 
     $('#waiting_panel_body_ul').empty();
-    $('#waiting_panel_body_ul').html(JSON.stringify(data['waiting']));
+    for (var waiting_download in waiting_data) {
+        for (var waiting_file in waiting_data[waiting_download]['files']) {
+            var download_file = waiting_data[waiting_download]['files'][waiting_file]['path'];
+            var total_length = waiting_data[waiting_download]['files'][waiting_file]['length'];
+            var completed_length = waiting_data[waiting_download]['files'][waiting_file]['completedLength'];
+            var percentage = Math.floor((parseInt(completed_length) / parseInt(total_length)) * 100).toString();
+            var li_holder = $('<li/>', {
+                text: download_file
+            }).appendTo('#waiting_panel_body_ul');
+            var holder = $('<div/>', {
+                class: "progress"
+            }).appendTo($(li_holder));
+            var holder_bar = $('<div/>', {
+                class: "progress-bar progress-bar-info",
+                role: "progressbar",
+                "aria-valuenow": percentage,
+                "aria-valuemin": "0",
+                "aria-valuemax": "100",
+                style: "width: " + percentage + "%"
+            }).appendTo($(holder));
+            $('<span/>', {
+                class: "sr-only",
+                text: percentage + '% Complete'
+            }).appendTo($(holder_bar));
+        }
+    }
 }
 
 function guess_location(filename, textbox) {
