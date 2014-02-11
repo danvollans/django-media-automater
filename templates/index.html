@@ -31,9 +31,13 @@
             Dajaxice.media.search_torrent(torrent_callback, $('#torrent_form').serializeObject() );
         }
         function refresh_files() {
-            $('#files_loader').empty();
-            $('#files_loader').append("Loading...");
-            Dajaxice.media.refresh_files(files_callback);
+            if ($('#downloads_reloader').html() === 'Show Downloads') {
+                $('#downloads_reloader').html('Hide Downloads');
+            }
+            else {
+                $('#downloads_reloader').html('Show Downloads');
+            }
+            $('#downloads_loader').toggle();
         }
         function downloads_information() {
             if ($('#downloads_reloader').html() === 'Show Downloads') {

@@ -13,6 +13,10 @@ function refresh_downloads() {
     Dajaxice.media.load_downloads(downloads_callback);
 }
 
+function refresh_files_ajax() {
+    Dajaxice.media.refresh_files(files_callback);
+}
+
 function downloads_callback(data) {
     $('#active_panel_body').empty();
     var active_data = data['active'];
@@ -308,7 +312,6 @@ function transmission_callback(data) {
 
 function files_callback(data) {
     if (data.status === 'success') {
-
         $('#torrents_active_panel_body').empty();
         var active_data = data['active'];
         for (var active_torrent in active_data) {
@@ -399,6 +402,6 @@ function delete_torrent_callback(data) {
 }
 
 $(document).ready(function () {
-    var timerId = setInterval(refresh_files, 300000);
-    var downloadTimer = setInterval(refresh_downloads, 2000);
+    var timerId = setInterval(refresh_files_ajax, 10000);
+    var downloadTimer = setInterval(refresh_downloads, 8000);
 });
