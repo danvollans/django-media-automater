@@ -322,7 +322,7 @@ function files_callback(data) {
                 $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
             }
             var active_files = active_data[active_torrent]['files'];
-            var speed = active_data[active_torrent]['speed'];
+            var speed = parseInt(active_data[active_torrent]['speed']);
             var torrent_holder = $('<div/>', {
                 id: 'torrent-container-' + active_torrent
             }).appendTo('#torrents_active_panel_body');
@@ -345,7 +345,7 @@ function files_callback(data) {
             }).appendTo($(holder));
             $('<span/>', {
                 class: "show",
-                text: 'Downloading - speed: ' + Math.floor((parseInt(speed) / 1000) / 1000).toString() + ' MB/s'
+                text: 'Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s'
             }).appendTo($(holder_bar));
             var files_holder = $('<div/>', {
                 text: 'Files:'
