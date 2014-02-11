@@ -321,7 +321,7 @@ function files_callback(data) {
             var percentage = active_data[active_torrent]['progress'].toString();
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo('#torrent_active_panel_body');
+            }).appendTo('#torrents_active_panel_body');
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
@@ -382,7 +382,9 @@ function files_callback(data) {
                 $('<button/>', {
                     type: 'button',
                     class: 'btn btn-xs btn-info',
-                    click: 'javascript: guess_location(\'' + file_name + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\');',
+                    click: function() {
+                        guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
+                        },
                     text: 'Guess Location'
                 }).appendTo($(file_li));
                 $('<input/>', {
@@ -393,18 +395,16 @@ function files_callback(data) {
                 $('<button/>', {
                     type: 'button',
                     class: 'btn btn-xs btn-success',
-                    click: 'javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\',\'torrent-' + stopped_torrent + '-' + file_counter + '-input\');',
+                    click:  function() {
+                        addDownload(downloadLink + stopped_files[file]['name'], 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
+                        },
                     text: 'Download File'
                 }).appendTo($(file_li));
                 file_counter++;
             }
         }
 
-
-        //$('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-success" onclick="addDownload(\'' + downloadLink + value[i] + '\',\'torrent-' + key + '-' + i + '-location\');">Download File</button><a id="torrent-' + key + '-' + i + '" href="' + downloadLink + value[i] + '">' + fileName + '</a></div>');
-        //$('#torrent-container-' + key).append('<div><button type="button" class="btn btn-xs btn-info" onclick="guess_location(\'' + fileName + '\', \'torrent-' + key + '-' + i + '-location\');">Guess Location</button><input id="torrent-' + key + '-' + i + '-location" type="text" class="textinput textInput form-control"></input></div>');
         return false;
-
 
         var downloadLink = "https://cereal.whatbox.ca/private/files/";
         $('#files_loader').empty();
