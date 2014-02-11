@@ -320,6 +320,7 @@ function files_callback(data) {
             var percentage = active_data[active_torrent]['progress'].toString();
             if ($('#torrent-container-' + active_torrent + '-progress').length) {
                 $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
+                continue;
             }
             var active_files = active_data[active_torrent]['files'];
             var speed = parseInt(active_data[active_torrent]['speed']);
