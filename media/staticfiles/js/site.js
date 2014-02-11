@@ -343,6 +343,7 @@ function files_callback(data) {
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var speed = stopped_data[stopped_torrent]['speed'];
             var torrent_holder = $('<div/>', {
+                id: '#torrent-container-' + stopped_torrent,
                 text: 'Torrent ID: ' + stopped_torrent
             }).appendTo('#torrents_stopped_panel_body');
             $('<button/>', {
@@ -370,13 +371,32 @@ function files_callback(data) {
                 text: 'Files:'
             }).appendTo($(torrent_holder));
             var files_ul_holder = $('<ul/>').appendTo($(files_holder));
+            var file_counter = 0;
             for (var file in stopped_files) {
                 var file_li = $('<li/>').appendTo($(files_ul_holder));
                 var file_name = stopped_files[file]['name'].split('/').pop();
                 $('<a/>', {
                     text: file_name,
-                    href:downloadLink + file_name
+                    href:downloadLink + stopped_files[file]['name']
                 }).appendTo($(file_li));
+                $('<button/>', {
+                    type: 'button',
+                    class: 'btn btn-xs btn-info',
+                    click: 'javascript: guess_location(\'' + file_name + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\');',
+                    text: 'Guess Location'
+                }).appendTo($(file_li));
+                $('<input/>', {
+                    id: 'torrent-' + stopped_torrent + '-' + file_counter + '-input',
+                    type: 'text',
+                    class: 'textinput textInput form-control'
+                }).appendTo($(file_li));
+                $('<button/>', {
+                    type: 'button',
+                    class: 'btn btn-xs btn-success',
+                    click: 'javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\',\'torrent-' + key + '-' + i + '-input\');',
+                    text: 'Download File'
+                }).appendTo($(file_li));
+                file_counter++;
             }
         }
 
@@ -429,6 +449,6 @@ function delete_torrent_callback(data) {
 }
 
 $(document).ready(function () {
-    var timerId = setInterval(refresh_files_ajax, 10000);
+    var timerId = setInterval(refresh_files_ajax, 10000000);
     var downloadTimer = setInterval(refresh_downloads, 8000);
 });
