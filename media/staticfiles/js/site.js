@@ -352,7 +352,7 @@ function files_callback(data) {
             }).appendTo($(holder));
             $('<span/>', {
                 class: "show",
-                text: 'Downloading - speed: ' + speed + ' MB/s'
+                text: 'Downloading - speed: ' + Math.floor((parseInt(speed) / 1000) / 1000).toString() + ' MB/s'
             }).appendTo($(holder_bar));
             var files_holder = $('<div/>', {
                 text: 'Files:'
@@ -468,6 +468,6 @@ function delete_torrent_callback(data) {
 }
 
 $(document).ready(function () {
-    var timerId = setInterval(refresh_files_ajax, 8000);
-    var downloadTimer = setInterval(refresh_downloads, 8000);
+    var timerId = setInterval(refresh_files_ajax, 20000);
+    var downloadTimer = setInterval(refresh_downloads, 20000);
 });
