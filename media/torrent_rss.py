@@ -44,7 +44,7 @@ def parse_torrenthound(search_filter):
 
 
 def parse_kickass(search_filter):
-    rss_url = 'http://kat.ph'
+    rss_url = 'http://kickass.to'
     rss_tag = urlencode({'rss': '1', 'field': 'seeders', 'sorder': 'desc'})
     get_data = search_filter.lower()
 
