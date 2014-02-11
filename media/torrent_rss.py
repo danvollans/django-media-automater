@@ -49,11 +49,11 @@ def parse_kickass(search_filter):
     get_data = search_filter.lower()
 
     try:
-        search_page = urlopen(rss_url + '/usearch/%s/?%s' % (get_data, rss_tag))
-    except URLError:
+        search_page = requests.get(rss_url + '/usearch/%s/?%s' % (get_data, rss_tag), headers={'User-agent': 'Mozilla/5.0'}, stream=True)
+    except URLError as error:
         return dict()
 
-    xml_section = etree.parse(search_page)
+    xml_section = etree.parse(search_page.raw)
     torrents = list(xml_section.iter('item'))
 
     search_results = list()
@@ -81,6 +81,9 @@ def parse_rss(search_site, search_filter):
 
 if __name__ == '__main__':
     #results = parse_rss(search_filter = "melissa and joey s03e01 720p")
-    results = parse_torrenthound(search_filter='Psych S08E02 720p')
+    #results = parse_torrenthound(search_filter='Psych S08E02 720p')
 
+    #print(results)
+
+    results = parse_kickass(search_filter='Psych S08E02 720p')
     print(results)
