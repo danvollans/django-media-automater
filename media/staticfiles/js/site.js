@@ -319,14 +319,7 @@ function files_callback(data) {
         for (var active_torrent in active_data) {
             var percentage = active_data[active_torrent]['progress'].toString();
             if ($('#torrent-container-' + active_torrent + '-progress').length) {
-                if (percentage === '100.0') {
-                    $('#torrent-container-' + active_torrent + '-progress').remove();
-                    continue;
-                }
-                else {
-                    $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
-                    continue;
-                }
+                $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
             }
             var active_files = active_data[active_torrent]['files'];
             var speed = active_data[active_torrent]['speed'];
@@ -359,7 +352,10 @@ function files_callback(data) {
             }).appendTo($(torrent_holder));
             var files_ul_holder = $('<ul/>').appendTo($(files_holder));
             for (var file in active_files) {
-                var file_name = active_files[file]['name'].split('/').pop();
+                var file_name = active_files[file]['name'].split('/');
+                if (file_name.length > 1) {
+                    file_name = file_name.pop();
+                }
                 var file_li = $('<li/>', {
                     text: file_name
                 }).appendTo($(files_ul_holder));
@@ -371,6 +367,9 @@ function files_callback(data) {
         // If Div does not Exist, add the stuffs.
         var stopped_data = data['data']['finished'];
         for (var stopped_torrent in stopped_data) {
+            if ($('#torrents_active #torrent-container-' + stopped_torrent).length) {
+                $('#torrents_active #torrent-container-' + stopped_torrent).remove();
+            }
             if ($('#torrents_stopped #torrent-container-' + stopped_torrent).length) {
                 continue;
             }
