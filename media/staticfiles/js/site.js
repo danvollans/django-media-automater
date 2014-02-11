@@ -351,7 +351,7 @@ function files_callback(data) {
                 class: "btn btn-xs btn-danger",
                 click: 'javascript: delete_torrent(' + stopped_torrent + '); return false;',
                 text: 'Delete Torrent and Data'
-            })
+            }).appendTo($(torrent_holder));
             var holder = $('<div/>', {
                 class: "progress"
             }).appendTo($(torrent_holder));
