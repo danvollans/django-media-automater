@@ -30,14 +30,14 @@
             $('#torrent_loader').append("Loading...");
             Dajaxice.media.search_torrent(torrent_callback, $('#torrent_form').serializeObject() );
         }
-        function refresh_files() {
-            if ($('#downloads_reloader').html() === 'Show Downloads') {
-                $('#downloads_reloader').html('Hide Downloads');
+        function files_information() {
+            if ($('#files_reloader').html() === 'Show Torrents') {
+                $('#fles_reloader').html('Hide Torrents');
             }
             else {
-                $('#downloads_reloader').html('Show Downloads');
+                $('#files_reloader').html('Show Torrents');
             }
-            $('#downloads_loader').toggle();
+            $('#files_loader').toggle();
         }
         function downloads_information() {
             if ($('#downloads_reloader').html() === 'Show Downloads') {
@@ -86,7 +86,7 @@
 <div class="function_wrapper" id="finished_files_wrapper">
     <h1>{{ files_header_title }}</h1>
     <div>
-        <button class="btn btn-success" type="button"  id="files_reloader" onclick="refresh_files(); return false;">Refresh File Listing...</button>
+        <button class="btn btn-success" type="button"  id="files_reloader" onclick="files_information(); return false;">Show Torrents</button>
         <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Show Downloads</button>
         <div id="files_loader" class="loader">
             <div id="torrents_active" class="loader panel panel-info">
