@@ -452,6 +452,6 @@ function delete_torrent_callback(data) {
 }
 
 $(document).ready(function () {
-    var timerId = setInterval(refresh_files_ajax, 10000000);
+    var timerId = setInterval(refresh_files_ajax, 8000);
     var downloadTimer = setInterval(refresh_downloads, 8000);
 });
