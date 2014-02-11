@@ -331,7 +331,7 @@ function files_callback(data) {
             var active_files = active_data[active_torrent]['files'];
             var speed = active_data[active_torrent]['speed'];
             var torrent_holder = $('<div/>', {
-                id: '#torrent-container-' + active_torrent
+                id: 'torrent-container-' + active_torrent
             }).appendTo('#torrents_active_panel_body');
             $('<span/>', {
                 text: 'Torrent ID: ' + active_torrent,
@@ -342,7 +342,7 @@ function files_callback(data) {
                 class: "progress"
             }).appendTo($(torrent_holder));
             var holder_bar = $('<div/>', {
-                id: '#torrent-container-' + active_torrent + '-progress',
+                id: 'torrent-container-' + active_torrent + '-progress',
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
                 "aria-valuenow": percentage,
@@ -378,7 +378,7 @@ function files_callback(data) {
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var speed = stopped_data[stopped_torrent]['speed'];
             var torrent_holder = $('<div/>', {
-                id: '#torrent-container-' + stopped_torrent
+                id: 'torrent-container-' + stopped_torrent
             }).appendTo('#torrents_stopped_panel_body');
             $('<span/>', {
                 text: 'Torrent ID: ' + stopped_torrent,
