@@ -242,52 +242,6 @@ function search_callback(data) {
 }
 function torrent_callback(data) {
     if (data.status === 'success') {
-        $('#torrents_active_panel_body').empty();
-        var active_data = data['active'];
-        for (var active_torrent in active_data) {
-            var download_files = active_data[active_torrent]['files'];
-            var percentage = active_data[active_torrent]['progress'].toString();
-            var holder = $('<div/>', {
-                class: "progress"
-            }).appendTo('#active_panel_body');
-            var holder_bar = $('<div/>', {
-                class: "progress-bar progress-bar-info",
-                role: "progressbar",
-                "aria-valuenow": percentage,
-                "aria-valuemin": "0",
-                "aria-valuemax": "100",
-                style: "width: " + percentage + "%"
-            }).appendTo($(holder));
-            $('<span/>', {
-                class: "show",
-                text: download_file.split("/").pop()
-            }).appendTo($(holder_bar));
-        }
-
-        $('#torrents_stopped_panel_body').empty();
-        var stopped_data = data['finished'];
-        for (var stopped_torrent in stopped_data) {
-            var download_files = stopped_data[stopped_torrent]['files'];
-            var percentage = stopped_data[stopped_torrent]['progress'].toString();
-            var holder = $('<div/>', {
-                class: "progress"
-            }).appendTo('#active_panel_body');
-            var holder_bar = $('<div/>', {
-                class: "progress-bar progress-bar-info",
-                role: "progressbar",
-                "aria-valuenow": percentage,
-                "aria-valuemin": "0",
-                "aria-valuemax": "100",
-                style: "width: " + percentage + "%"
-            }).appendTo($(holder));
-            $('<span/>', {
-                class: "show",
-                text: download_file.split("/").pop()
-            }).appendTo($(holder_bar));
-        }
-
-        return false;
-
         $('#torrent_loader').html("");
         // Check for empty results
         if (Object.keys(data['data']).length === 0) {
@@ -354,6 +308,54 @@ function transmission_callback(data) {
 
 function files_callback(data) {
     if (data.status === 'success') {
+
+        $('#torrents_active_panel_body').empty();
+        var active_data = data['active'];
+        for (var active_torrent in active_data) {
+            var download_files = active_data[active_torrent]['files'];
+            var percentage = active_data[active_torrent]['progress'].toString();
+            var holder = $('<div/>', {
+                class: "progress"
+            }).appendTo('#active_panel_body');
+            var holder_bar = $('<div/>', {
+                class: "progress-bar progress-bar-info",
+                role: "progressbar",
+                "aria-valuenow": percentage,
+                "aria-valuemin": "0",
+                "aria-valuemax": "100",
+                style: "width: " + percentage + "%"
+            }).appendTo($(holder));
+            $('<span/>', {
+                class: "show",
+                text: download_file.split("/").pop()
+            }).appendTo($(holder_bar));
+        }
+
+        $('#torrents_stopped_panel_body').empty();
+        var stopped_data = data['finished'];
+        for (var stopped_torrent in stopped_data) {
+            var download_files = stopped_data[stopped_torrent]['files'];
+            var percentage = stopped_data[stopped_torrent]['progress'].toString();
+            var holder = $('<div/>', {
+                class: "progress"
+            }).appendTo('#active_panel_body');
+            var holder_bar = $('<div/>', {
+                class: "progress-bar progress-bar-info",
+                role: "progressbar",
+                "aria-valuenow": percentage,
+                "aria-valuemin": "0",
+                "aria-valuemax": "100",
+                style: "width: " + percentage + "%"
+            }).appendTo($(holder));
+            $('<span/>', {
+                class: "show",
+                text: download_file.split("/").pop()
+            }).appendTo($(holder_bar));
+        }
+
+        return false;
+
+
         var downloadLink = "https://cereal.whatbox.ca/private/files/";
         $('#files_loader').empty();
         $.each(data['data'], function (key, value) {
