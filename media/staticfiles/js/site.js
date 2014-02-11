@@ -318,12 +318,13 @@ function files_callback(data) {
         var active_data = data['data']['active'];
         for (var active_torrent in active_data) {
             var percentage = active_data[active_torrent]['progress'].toString();
+            var speed = parseInt(active_data[active_torrent]['speed']);
             if ($('#torrent-container-' + active_torrent + '-progress').length) {
                 $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
+                $('#torrent-container-' + active_torrent + '-progress span').html('Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s')
                 continue;
             }
             var active_files = active_data[active_torrent]['files'];
-            var speed = parseInt(active_data[active_torrent]['speed']);
             var torrent_holder = $('<div/>', {
                 id: 'torrent-container-' + active_torrent
             }).appendTo('#torrents_active_panel_body');
