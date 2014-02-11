@@ -313,7 +313,7 @@ function transmission_callback(data) {
 function files_callback(data) {
     if (data.status === 'success') {
         $('#torrents_active_panel_body').empty();
-        var active_data = data['active'];
+        var active_data = data['data']['active'];
         for (var active_torrent in active_data) {
             var download_files = active_data[active_torrent]['files'];
             var percentage = active_data[active_torrent]['progress'].toString();
@@ -335,8 +335,7 @@ function files_callback(data) {
         }
 
         $('#torrents_stopped_panel_body').empty();
-        var stopped_data = data['finished'];
-        alert(data.finished);
+        var stopped_data = data['data']['finished'];
         for (var stopped_torrent in stopped_data) {
             var download_files = stopped_data[stopped_torrent]['files'];
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
