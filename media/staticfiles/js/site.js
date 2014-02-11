@@ -319,7 +319,7 @@ function files_callback(data) {
             var percentage = active_data[active_torrent]['progress'].toString();
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo('#active_panel_body');
+            }).appendTo('#torrent_active_panel_body');
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
@@ -341,7 +341,7 @@ function files_callback(data) {
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo('#active_panel_body');
+            }).appendTo('#torrents_stopped_panel_body');
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
