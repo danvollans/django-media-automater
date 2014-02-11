@@ -336,7 +336,7 @@ function files_callback(data) {
 
         $('#torrents_stopped_panel_body').empty();
         var stopped_data = data['finished'];
-        alert(data['finished']);
+        alert(data.finished);
         for (var stopped_torrent in stopped_data) {
             var download_files = stopped_data[stopped_torrent]['files'];
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
