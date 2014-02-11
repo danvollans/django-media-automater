@@ -85,33 +85,48 @@
         <button class="btn btn-success" type="button"  id="files_reloader" onclick="refresh_files(); return false;">Refresh File Listing...</button>
         <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Show Downloads</button>
         <div id="files_loader" class="loader">
+            <div id="torrents_active" class="loader panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Active Torrents</h4>
+                </div>
+                <div id="torrents_active_panel_body" class="panel-body">
 
+                </div>
+            </div>
+            <div id="torrents_stopped" class="loader panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Finished Torrents</h4>
+                </div>
+                <div id="torrents_stopped_panel_body" class="panel-body">
+
+                </div>
+            </div>
         </div>
         <div id="downloads_loader" style="display:none;" class="loader">
-                <div id="downloads_active" class="loader panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Active Downloads</h4>
-                    </div>
-                    <div id="active_panel_body" class="panel-body">
-
-                    </div>
+            <div id="downloads_active" class="loader panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Active Downloads</h4>
                 </div>
-                <div id="downloads_stopped" class="loader panel panel-success">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Finished Downloads</h4>
-                    </div>
-                    <div id="stopped_panel_body" class="panel-body">
+                <div id="active_panel_body" class="panel-body">
 
-                    </div>
                 </div>
-                <div id="downloads_waiting" class="loader panel panel-warning">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Pending Downloads</h4>
-                    </div>
-                    <div id="waiting_panel_body" class="panel-body">
+            </div>
+            <div id="downloads_stopped" class="loader panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Finished Downloads</h4>
+                </div>
+                <div id="stopped_panel_body" class="panel-body">
 
-                    </div>
                 </div>
+            </div>
+            <div id="downloads_waiting" class="loader panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Pending Downloads</h4>
+                </div>
+                <div id="waiting_panel_body" class="panel-body">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

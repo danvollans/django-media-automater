@@ -121,6 +121,20 @@ def refresh_files(request):
     except:
         return json.dumps({ 'status': 'failure' })
 
+    current_torrents = dict(active=dict(), finished=dict())
+    for torrent in torrents:
+        torrent_id = torrent.id
+        torrent_files = torrent.files()
+        torrent_progress = torrent.progress
+        torrent_speed = torrent.rateDownload
+        if torrent_progress == 100.0:
+            type_dict = 'finished'
+        else:
+            type_dict = 'active'
+        current_torrents[type_dict][torrent_id] = dict(id=torrent_id, files=torrent_files, progress=torrent_progress, speed=torrent_speed)
+
+    return json.dumps({ 'status': 'success', 'data': current_torrents })
+
     regex_match = r"\.(avi|mkv|mp4|wmv|iso)$"
     files = OrderedDict()
     for torrent in torrents:
