@@ -339,10 +339,13 @@ function files_callback(data) {
         for (var stopped_torrent in stopped_data) {
             var stopped_files = stopped_data[stopped_torrent]['files'];
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
-            var holder = $('<div/>', {
-                class: "progress",
+            var speed = stopped_data[stopped_torrent]['speed'];
+            var torrent_holder = $('<div/>', {
                 text: 'Torrent ID: ' + stopped_torrent
-            }).appendTo('#torrents_stopped_panel_body');
+            }).appendTo('#torrents_stopped_panel_body')
+            var holder = $('<div/>', {
+                class: "progress"
+            }).appendTo($(torrent_holder));
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-success",
                 role: "progressbar",
@@ -353,12 +356,12 @@ function files_callback(data) {
             }).appendTo($(holder));
             $('<span/>', {
                 class: "show",
-                text: 'Finished'
+                text: 'Finished - speed: ' + speed + ' MB/s'
             }).appendTo($(holder_bar));
             for (var file in stopped_files) {
                 $('<div/>', {
                     text: stopped_files[file]['name']
-                }).appendTo($(holder));
+                }).appendTo($(torrent_holder));
             }
         }
 
