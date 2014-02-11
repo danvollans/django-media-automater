@@ -393,7 +393,7 @@ function files_callback(data) {
                 $('<button/>', {
                     type: 'button',
                     class: 'btn btn-xs btn-success',
-                    click: 'javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\',\'torrent-' + key + '-' + i + '-input\');',
+                    click: 'javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\',\'torrent-' + stopped_torrent + '-' + file_counter + '-input\');',
                     text: 'Download File'
                 }).appendTo($(file_li));
                 file_counter++;
