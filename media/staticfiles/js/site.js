@@ -314,11 +314,21 @@ function files_callback(data) {
     if (data.status === 'success') {
         var downloadLink = "https://cereal.whatbox.ca/private/files/";
 
-        $('#torrents_active_panel_body').empty();
+        /// If Div exists with a percentage bar already, just update the percentage
         var active_data = data['data']['active'];
         for (var active_torrent in active_data) {
-            var active_files = active_data[active_torrent]['files'];
             var percentage = active_data[active_torrent]['progress'].toString();
+            if ($('#torrent-container-' + active_torrent + '-progress').length) {
+                if (percentage === '100.0') {
+                    $('#torrent-container-' + active_torrent + '-progress').remove();
+                    continue;
+                }
+                else {
+                    $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
+                    continue;
+                }
+            }
+            var active_files = active_data[active_torrent]['files'];
             var speed = active_data[active_torrent]['speed'];
             var torrent_holder = $('<div/>', {
                 id: '#torrent-container-' + active_torrent
@@ -332,6 +342,7 @@ function files_callback(data) {
                 class: "progress"
             }).appendTo($(torrent_holder));
             var holder_bar = $('<div/>', {
+                id: '#torrent-container-' + active_torrent + '-progress',
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
                 "aria-valuenow": percentage,
@@ -355,9 +366,14 @@ function files_callback(data) {
             }
         }
 
-        $('#torrents_stopped_panel_body').empty();
+        // First loop through all alements in the finished array.
+        // If Div Exists, pass.
+        // If Div does not Exist, add the stuffs.
         var stopped_data = data['data']['finished'];
         for (var stopped_torrent in stopped_data) {
+            if ($('#torrents_stopped #torrent-container-' + stopped_torrent).length) {
+                continue;
+            }
             var stopped_files = stopped_data[stopped_torrent]['files'];
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var speed = stopped_data[stopped_torrent]['speed'];
