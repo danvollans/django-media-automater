@@ -317,11 +317,20 @@ function files_callback(data) {
         $('#torrents_active_panel_body').empty();
         var active_data = data['data']['active'];
         for (var active_torrent in active_data) {
-            var download_files = active_data[active_torrent]['files'];
+            var active_files = active_data[active_torrent]['files'];
             var percentage = active_data[active_torrent]['progress'].toString();
+            var speed = active_data[active_torrent]['speed'];
+            var torrent_holder = $('<div/>', {
+                id: '#torrent-container-' + active_torrent
+            }).appendTo('#torrents_active_panel_body');
+            $('<span/>', {
+                text: 'Torrent ID: ' + active_torrent,
+                style: "font-weight: bold; margin-right: 20px;"
+            }).appendTo($(torrent_holder));
+            $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
                 class: "progress"
-            }).appendTo('#torrents_active_panel_body');
+            }).appendTo($(torrent_holder));
             var holder_bar = $('<div/>', {
                 class: "progress-bar progress-bar-info",
                 role: "progressbar",
@@ -332,8 +341,18 @@ function files_callback(data) {
             }).appendTo($(holder));
             $('<span/>', {
                 class: "show",
-                text: download_file.split("/").pop()
+                text: 'Downloading - speed: ' + speed + ' MB/s'
             }).appendTo($(holder_bar));
+            var files_holder = $('<div/>', {
+                text: 'Files:'
+            }).appendTo($(torrent_holder));
+            var files_ul_holder = $('<ul/>').appendTo($(files_holder));
+            for (var file in active_files) {
+                var file_name = active_files[file]['name'].split('/').pop();
+                var file_li = $('<li/>', {
+                    text: file_name
+                }).appendTo($(files_ul_holder));
+            }
         }
 
         $('#torrents_stopped_panel_body').empty();
@@ -343,15 +362,13 @@ function files_callback(data) {
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var speed = stopped_data[stopped_torrent]['speed'];
             var torrent_holder = $('<div/>', {
-                id: '#torrent-container-' + stopped_torrent,
-                text: 'Torrent ID: ' + stopped_torrent
+                id: '#torrent-container-' + stopped_torrent
             }).appendTo('#torrents_stopped_panel_body');
-            $('<button/>', {
-                type: 'button',
-                class: "btn btn-xs btn-danger",
-                click: 'javascript: delete_torrent(' + stopped_torrent + '); return false;',
-                text: 'Delete Torrent and Data'
+            $('<span/>', {
+                text: 'Torrent ID: ' + stopped_torrent,
+                style: "font-weight: bold; margin-right: 20px;"
             }).appendTo($(torrent_holder));
+            $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
                 class: "progress"
             }).appendTo($(torrent_holder));
