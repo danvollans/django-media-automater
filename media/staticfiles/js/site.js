@@ -418,12 +418,12 @@ function files_callback(data) {
                     id: 'torrent-' + stopped_torrent + '-' + file_counter + '-input',
                     type: 'text',
                     class: 'textinput textInput form-control',
-                    style: 'width: 80%; float: left;'
+                    style: 'width: 100%;'
                 }).appendTo($(file_container));
                 guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
                 file_counter++;
             }
-            $(torrent_holder).append('<button style="float: right;" type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
+            $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
         }
 
         return false;
