@@ -421,7 +421,7 @@ function files_callback(data) {
                     id: 'torrent-' + stopped_torrent + '-' + file_counter + '-input',
                     type: 'text',
                     class: 'textinput textInput form-control',
-                    style: 'width: 80%'
+                    style: 'width: 70%'
                 }).appendTo($(file_container));
                 guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
                 $(file_container).append('<button style="width: 20%" type="button" class="btn btn-xs btn-success" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\');">Download File</button>');

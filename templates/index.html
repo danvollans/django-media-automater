@@ -32,7 +32,7 @@
         }
         function files_information() {
             if ($('#files_reloader').html() === 'Show Torrents') {
-                $('#fles_reloader').html('Hide Torrents');
+                $('#files_reloader').html('Hide Torrents');
             }
             else {
                 $('#files_reloader').html('Show Torrents');
@@ -88,7 +88,7 @@
     <div>
         <button class="btn btn-success" type="button"  id="files_reloader" onclick="files_information(); return false;">Show Torrents</button>
         <button class="btn btn-success" type="button"  id="downloads_reloader" onclick="downloads_information(); return false;">Show Downloads</button>
-        <div id="files_loader" class="loader">
+        <div id="files_loader" style="display:none;" class="loader">
             <div id="torrents_active" class="loader panel panel-info">
                 <div class="panel-heading">
                     <h4 class="panel-title">Active Torrents</h4>
