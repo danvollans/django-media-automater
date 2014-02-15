@@ -410,7 +410,8 @@ function files_callback(data) {
                 var file_name = stopped_files[file]['name'].split('/').pop();
                 $('<a/>', {
                     text: file_name,
-                    href:downloadLink + stopped_files[file]['name']
+                    href: '#',
+                    click: "javascript: addDownload('" + downloadLink + stopped_files[file]['name'] + "', 'torrent-" + stopped_torrent + '-' + file_counter + "-input'); return false;"
                 }).appendTo($(file_li));
                 var file_container = $('<div/>', {
                     class: 'file_holder',
@@ -423,10 +424,9 @@ function files_callback(data) {
                     style: 'width: 80%; float: left;'
                 }).appendTo($(file_container));
                 guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
-                $(file_container).append('<button style="float: left; width: 20%" type="button" class="btn btn-xs btn-success" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\');">Download</button>');
                 file_counter++;
             }
-            $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
+            $(torrent_holder).append('<button style="float: right;" type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
         }
 
         return false;
