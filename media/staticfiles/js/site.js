@@ -408,7 +408,7 @@ function files_callback(data) {
             for (var file in stopped_files) {
                 var file_li = $('<li/>').appendTo($(files_ul_holder));
                 var file_name = stopped_files[file]['name'].split('/').pop();
-                $(file_li).append('<a href="#" onclick="javascript: addDownload(\"' + downloadLink + stopped_files[file]['name'] + '\", \"torrent-' + stopped_torrent + '-' + file_counter + '-input\"); return false;">' + file_name +'</a>');
+                $(file_li).append('<a href="#" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\'); return false;">' + file_name +'</a>');
                 var file_container = $('<div/>', {
                     class: 'file_holder',
                     style: 'width: 100%'
