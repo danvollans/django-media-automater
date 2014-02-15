@@ -383,9 +383,8 @@ function files_callback(data) {
             }).appendTo('#torrents_stopped_panel_body');
             $('<span/>', {
                 text: 'Torrent ID: ' + stopped_torrent,
-                style: "font-weight: bold; margin-right: 20px;"
+                style: "font-size: 1.1em; font-weight: bold; margin-right: 20px;"
             }).appendTo($(torrent_holder));
-            $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
                 class: "progress"
             }).appendTo($(torrent_holder));
@@ -421,12 +420,13 @@ function files_callback(data) {
                     id: 'torrent-' + stopped_torrent + '-' + file_counter + '-input',
                     type: 'text',
                     class: 'textinput textInput form-control',
-                    style: 'width: 80%;'
+                    style: 'width: 80%; float: left;'
                 }).appendTo($(file_container));
                 guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
                 $(file_container).append('<button style="float: left; width: 20%" type="button" class="btn btn-xs btn-success" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\');">Download</button>');
                 file_counter++;
             }
+            $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
         }
 
         return false;
