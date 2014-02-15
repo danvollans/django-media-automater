@@ -385,6 +385,7 @@ function files_callback(data) {
                 text: 'Torrent ID: ' + stopped_torrent,
                 style: "font-size: 1.1em; font-weight: bold; margin-right: 20px;"
             }).appendTo($(torrent_holder));
+            $(torrent_holder).append('<button style="float: right;" type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
                 class: "progress"
             }).appendTo($(torrent_holder));
@@ -408,11 +409,7 @@ function files_callback(data) {
             for (var file in stopped_files) {
                 var file_li = $('<li/>').appendTo($(files_ul_holder));
                 var file_name = stopped_files[file]['name'].split('/').pop();
-                $('<a/>', {
-                    text: file_name,
-                    href: '#',
-                    click: "addDownload('" + downloadLink + stopped_files[file]['name'] + "', 'torrent-" + stopped_torrent + '-' + file_counter + "-input'); return false;"
-                }).appendTo($(file_li));
+                $(file_li).append('<a href="#" onclick="javascript: addDownload(\"' + downloadLink + stopped_files[file]['name'] + '\", \"torrent-' + stopped_torrent + '-' + file_counter + '-input\"); return false;"');
                 var file_container = $('<div/>', {
                     class: 'file_holder',
                     style: 'width: 100%'
@@ -426,7 +423,6 @@ function files_callback(data) {
                 guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
                 file_counter++;
             }
-            $(torrent_holder).append('<button style="float: right;" type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + stopped_torrent + '); return false;">Delete Torrent and Data</button>');
         }
 
         return false;
