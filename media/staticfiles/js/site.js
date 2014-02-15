@@ -379,6 +379,7 @@ function files_callback(data) {
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var speed = stopped_data[stopped_torrent]['speed'];
             var torrent_holder = $('<div/>', {
+                class: 'torrent-container',
                 id: 'torrent-container-' + stopped_torrent
             }).appendTo('#torrents_stopped_panel_body');
             $('<span/>', {
