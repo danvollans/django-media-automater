@@ -327,6 +327,7 @@ function files_callback(data) {
             }
             var active_files = active_data[active_torrent]['files'];
             var torrent_holder = $('<div/>', {
+                class: 'torrent-container',
                 id: 'torrent-container-' + active_torrent
             }).appendTo('#torrents_active_panel_body');
             $('<span/>', {
