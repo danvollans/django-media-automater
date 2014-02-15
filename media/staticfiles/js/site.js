@@ -458,6 +458,7 @@ function files_callback(data) {
 function delete_torrent(torrent_id) {
     Dajaxice.media.delete_torrent(delete_torrent_callback, { 'id': torrent_id });
     $('#torrent-container-' + torrent_id).html('<h3>Torrent ' + torrent_id + '</h3><p>Deleting torrent ' + torrent_id + '...</p>');
+    $('#torrent-container-' + torrent_id).css('background-color', '#FF3333');
 }
 
 function delete_torrent_callback(data) {
