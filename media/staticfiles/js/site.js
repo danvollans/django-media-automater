@@ -1,5 +1,6 @@
 // AJAX For Downloader Services
 function addDownload(download_url, location) {
+    $('#' + location).closest(".torrent-container").css('background-color', '#66FF99');
     Dajaxice.media.transfer_file(download_file_callback, {'url': download_url, 'location': $('#' + location).val()});
 }
 
