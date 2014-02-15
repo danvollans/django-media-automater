@@ -413,7 +413,6 @@ function files_callback(data) {
                     text: file_name,
                     href:downloadLink + stopped_files[file]['name']
                 }).appendTo($(file_li));
-                guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
                 var file_container = $('<div/>', {
                     class: 'file_holder',
                     style: 'width: 100%'
@@ -424,6 +423,7 @@ function files_callback(data) {
                     class: 'textinput textInput form-control',
                     style: 'width: 80%'
                 }).appendTo($(file_container));
+                guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
                 $(file_container).append('<button style="width: 20%" type="button" class="btn btn-xs btn-success" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\');">Download File</button>');
                 file_counter++;
             }
