@@ -411,7 +411,7 @@ function files_callback(data) {
                 $('<a/>', {
                     text: file_name,
                     href: '#',
-                    click: "javascript: addDownload('" + downloadLink + stopped_files[file]['name'] + "', 'torrent-" + stopped_torrent + '-' + file_counter + "-input'); return false;"
+                    click: "addDownload('" + downloadLink + stopped_files[file]['name'] + "', 'torrent-" + stopped_torrent + '-' + file_counter + "-input'); return false;"
                 }).appendTo($(file_li));
                 var file_container = $('<div/>', {
                     class: 'file_holder',
