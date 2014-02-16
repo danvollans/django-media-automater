@@ -180,10 +180,18 @@ function eachRecursive(data, element) {
                 }).appendTo(new_item));
         }
         else {
+            // Exclude this element from searching if it's a summary div
+            if (parseInt(data_key) === 2) {
+                var extra_class = 'exclude-search';
+            }
+            else {
+                var extra_class = '';
+            }
             var end_element = $("<div/>", {
-                class: "list-group-item",
+                class: "list-group-item " + extra_class,
                 text: data[data_key]
             }).appendTo(element);
+
             // If this is a title, append the name to to parent.
             if (parseInt(data_key) === 0) {
                 var parent_anchor = end_element.parent().parent().parent().prev("a.list-group-item");
