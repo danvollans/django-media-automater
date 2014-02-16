@@ -187,7 +187,7 @@ function eachRecursive(data, element) {
             // If this is a title, append the name to to parent.
             if (parseInt(data_key) === 0) {
                 var parent_anchor = end_element.parent().parent().parent().prev("a.list-group-item");
-                if (/^show...$/.test(end_element.parent().attr("id"))) {
+                if (end_element.parent().attr("id").substring(0, 4) == "show") {
                     parent_anchor.text(data_key + ' - ' + data[data_key] + ' - ' + data[(parseInt(data_key) + 1).toString()]);
                 }
                 else {
