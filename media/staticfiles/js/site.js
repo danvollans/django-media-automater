@@ -520,10 +520,10 @@ $(document).ready(function () {
     var downloadTimer = setInterval(refresh_downloads, 12000);
 
     $("#media_search_input").keydown(function(){
-        if ($("media_search_input").val().length < 3) {
+        if ($("#media_search_input").val().length < 3) {
             return;
         }
-        var search_strings = $("media_search_input").val().split(' ');
+        var search_strings = $("#media_search_input").val().split(' ');
         var search_text = '#sections-list-group a:not(".exclude-search")';
         for (var string in search_strings) {
             search_text += ':Contains("' + string + '")';
