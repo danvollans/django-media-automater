@@ -168,12 +168,12 @@ function eachRecursive(data, element) {
             // First display the title
             var new_id = element.attr('id') + "-" + data_key.replace(/\s|\(|\)/g, "-");
             $("<a/>", {
-                class: "list-group-item media-toggler",
+                class: "list-group-item",
                 text: data_key,
                 onclick: 'javascript: $("#' + new_id + '").toggle(); $(this).toggleClass(\'active\');'
             }).appendTo(element);
             var new_group = $("<div/>", {
-                class: "list-group",
+                class: "list-group  media-toggler",
                 id: new_id,
                 style: "display: none;"
             }).appendTo(element);
@@ -258,13 +258,13 @@ function load_media_callback(data) {
     }).appendTo("#load_media");
     for (var section_key in data) {
         $("<a/>", {
-            class: "list-group-item media-toggler",
+            class: "list-group-item",
             id: section_key + "-list-anchor",
             text: section_key,
             onclick: 'javascript: $("#' + section_key + '-list-data-group").toggle(); $(this).toggleClass(\'active\');'
         }).appendTo("#sections-list-group");
         $("<div/>", {
-            class: "list-group",
+            class: "list-group media-toggler",
             id: section_key + "-list-data-group",
             style: "display: none;"
         }).appendTo("#sections-list-group");
