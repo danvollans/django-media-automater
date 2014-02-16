@@ -140,7 +140,8 @@ def search_plex(search_type, search):
         video_summary = video.getAttribute('summary')
         video_type = video.getAttribute('type')
         video_id = video.getAttribute('ratingKey')
-        video_dict = dict( summary = video_summary, media_id = video_id, title = video_title + ' ' + video_year)
+        video_date = video.getAttribute('originallyAvailableAt')
+        video_dict = dict( summary=video_summary, media_id=video_id, title=video_title + ' ' + video_year, date=video_date)
         return_results.append(video_dict)
     return return_results
 
@@ -163,4 +164,4 @@ if __name__ == '__main__':
     #print(search_plex( search_filter = search_text ))
 
     # Try new plex search
-    print(search_exist2(search_type='movie', search=dict(search='Indiana Jones',season='1', episode='1')))
+    print(search_plex('show', ''))
