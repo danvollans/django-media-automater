@@ -188,10 +188,24 @@ function eachRecursive(data, element) {
             if (parseInt(data_key) === 0) {
                 var parent_anchor = end_element.parent().parent().parent().prev("a.list-group-item");
                 if (end_element.parent().attr("id").substring(0, 4) == "show") {
-                    parent_anchor.text(data_key + ' - ' + data[data_key] + ' - ' + data[(parseInt(data_key) + 1).toString()]);
+                    $('<span/>', {
+                        style: 'float: left;',
+                        text: parent_anchor.text() + ' - ' + data[data_key]
+                    }).appendTo(parent_anchor);
+                    $('<span/>', {
+                        style: 'float: left;',
+                        text: data[(parseInt(data_key) + 1).toString()]
+                    })
                 }
                 else {
-                    parent_anchor.text(data[data_key] + ' - ' + data[(parseInt(data_key) + 1).toString()]);
+                    $('<span/>', {
+                        style: 'float: left;',
+                        text: data[data_key]
+                    }).appendTo(parent_anchor);
+                    $('<span/>', {
+                        style: 'float: left;',
+                        text: data[(parseInt(data_key) + 1).toString()]
+                    })
                 }
             }
         }
