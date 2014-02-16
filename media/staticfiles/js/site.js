@@ -533,7 +533,7 @@ function files_callback(data) {
         $("#files_loader > div").tsort("", {attr: "id"});
     }
     else {
-        alert(data.status);
+        return
     }
 }
 
