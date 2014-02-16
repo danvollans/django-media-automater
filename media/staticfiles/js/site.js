@@ -238,6 +238,22 @@ function eachRecursive(data, element) {
 function load_media_callback(data) {
     $("#load_media").empty();
     $("#load_media").append('<input id="media_search_input" type="text" class="textinput textInput form-control"></input>');
+
+    // Search Functionality for loaded media
+    $("#media_search_input").keydown(function(){
+        if ($("#media_search_input").val().length < 3) {
+            return;
+        }
+        var search_strings = $("#media_search_input").val().split(' ');
+        var search_text = '#sections-list-group a:not(".exclude-search")';
+        for (var string in search_strings) {
+            search_text += ':Contains("' + search_strings[string] + '")';
+        }
+        alert(search_text);
+        alert($(search_text));
+    });
+
+    // Process the data
     $("<div/>", {
         class: "list-group",
         id: "sections-list-group"
@@ -519,17 +535,4 @@ function delete_torrent_callback(data) {
 $(document).ready(function () {
     var timerId = setInterval(refresh_files_ajax, 12000);
     var downloadTimer = setInterval(refresh_downloads, 12000);
-
-    $("#media_search_input").keydown(function(){
-        if ($("#media_search_input").val().length < 3) {
-            return;
-        }
-        var search_strings = $("#media_search_input").val().split(' ');
-        var search_text = '#sections-list-group a:not(".exclude-search")';
-        for (var string in search_strings) {
-            search_text += ':Contains("' + search_strings[string] + '")';
-        }
-        alert(search_text);
-        alert($(search_text));
-    });
 });
