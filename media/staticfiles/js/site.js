@@ -567,7 +567,7 @@ $(document).ready(function () {
 
     $(document).keypress(function(e) {
         switch(e.which) {
-            case 85: scrollToTop(); break;
+            case 117: scrollToTop(); break;
         }
     });
 });
