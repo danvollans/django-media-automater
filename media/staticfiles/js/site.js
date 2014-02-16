@@ -260,10 +260,12 @@ function load_media_callback(data) {
             $(this).css('display', 'none');
             $(this).prev().removeClass('active');
         });
-        var search_results = $(search_text + ' div');
+        var search_results = $(search_text + ' + div');
         search_results.each( function() {
             $(this).toggle();
             $(this).prev().toggleClass('active');
+
+            $('body').scrollTo('#' + $(this).prev().attr('id'));
         });
         search_results.parentsUntil($('#sections-list-group'), ".media-toggler").each(function() {
             $(this).toggle();
