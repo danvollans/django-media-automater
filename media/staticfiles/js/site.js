@@ -191,21 +191,21 @@ function eachRecursive(data, element) {
                 parent_anchor.empty();
                 if (end_element.parent().attr("id").substring(0, 4) == "show") {
                     $('<span/>', {
-                        style: 'float: left;',
+                        style: 'float: left; width: 70%',
                         text:  'Ep: ' + old_key + ' - ' + data[data_key]
                     }).appendTo(parent_anchor);
                     $('<span/>', {
-                        style: 'float: right;',
+                        style: 'float: right; width: 30%',
                         text: data[(parseInt(data_key) + 1).toString()]
                     }).appendTo(parent_anchor)
                 }
                 else {
                     $('<span/>', {
-                        style: 'float: left;',
+                        style: 'float: left;  width: 70%',
                         text: data[data_key]
                     }).appendTo(parent_anchor);
                     $('<span/>', {
-                        style: 'float: right;',
+                        style: 'float: right; width: 30%',
                         text: data[(parseInt(data_key) + 1).toString()]
                     }).appendTo(parent_anchor);
                 }
