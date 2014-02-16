@@ -187,15 +187,17 @@ function eachRecursive(data, element) {
             // If this is a title, append the name to to parent.
             if (parseInt(data_key) === 0) {
                 var parent_anchor = end_element.parent().parent().parent().prev("a.list-group-item");
+                var old_key = parent_anchor.text();
+                parent_anchor.empty();
                 if (end_element.parent().attr("id").substring(0, 4) == "show") {
                     $('<span/>', {
                         style: 'float: left;',
-                        text: parent_anchor.text() + ' - ' + data[data_key]
+                        text:  'Ep: ' + old_key + ' - ' + data[data_key]
                     }).appendTo(parent_anchor);
                     $('<span/>', {
-                        style: 'float: left;',
+                        style: 'float: right;',
                         text: data[(parseInt(data_key) + 1).toString()]
-                    })
+                    }).appendTo(parent_anchor)
                 }
                 else {
                     $('<span/>', {
@@ -203,9 +205,9 @@ function eachRecursive(data, element) {
                         text: data[data_key]
                     }).appendTo(parent_anchor);
                     $('<span/>', {
-                        style: 'float: left;',
+                        style: 'float: right;',
                         text: data[(parseInt(data_key) + 1).toString()]
-                    })
+                    }).appendTo(parent_anchor);
                 }
             }
         }
