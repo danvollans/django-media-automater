@@ -519,7 +519,7 @@ $(document).ready(function () {
     var timerId = setInterval(refresh_files_ajax, 12000);
     var downloadTimer = setInterval(refresh_downloads, 12000);
 
-    $("media_search_input").keydown(function(){
+    $("#media_search_input").keydown(function(){
         if ($("media_search_input").val().length < 3) {
             return;
         }
