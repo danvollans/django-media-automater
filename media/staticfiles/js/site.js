@@ -173,7 +173,7 @@ function eachRecursive(data, element) {
                 onclick: 'javascript: $("#' + new_id + '").toggle(); $(this).toggleClass(\'active\');'
             }).appendTo(element);
             var new_group = $("<div/>", {
-                class: "list-group  media-toggler",
+                class: "list-group media-toggler",
                 id: new_id,
                 style: "display: none;"
             }).appendTo(element);
