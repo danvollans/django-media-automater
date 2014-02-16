@@ -1,3 +1,10 @@
+// Case insensitive selector searching
+jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+    return function( elem ) {
+        return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    };
+});
+
 // AJAX For Downloader Services
 function addDownload(download_url, location) {
     $('#' + location).closest(".torrent-container").css('background-color', '#66FF99');
