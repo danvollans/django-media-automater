@@ -240,7 +240,13 @@ function load_media_callback(data) {
     $("#load_media").append('<input id="media_search_input" type="text" class="textinput textInput form-control"></input>');
 
     // Search Functionality for loaded media
-    $("#media_search_input").keydown(function(){
+    $("#media_search_input").on('keyup', function(e) {
+        if (e.which != 13) {
+            return;
+        }
+        else {
+            e.preventDefault();
+        }
         if ($("#media_search_input").val().length < 3) {
             return;
         }
@@ -252,7 +258,7 @@ function load_media_callback(data) {
 
         $('#sections-list-group .media-toggler').each(function() {
             $(this).css('display', 'none');
-            $(this).removeClass('active');
+            $(this).prev().removeClass('active');
         });
         var search_results = $(search_text + ' div');
         search_results.each( function() {
