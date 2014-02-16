@@ -554,15 +554,20 @@ function delete_torrent_callback(data) {
     }
 }
 
+function scrollToTop() {
+    $(document.documentElement).animate({
+        scrollTop: 0
+    }, 1000);
+}
+
 $(document).ready(function () {
     var timerId = setInterval(refresh_files_ajax, 12000);
     var downloadTimer = setInterval(refresh_downloads, 12000);
 
-    $(document).on('keyup', function(e) {
-        if (e.which == 117) {
-            $(document.documentElement).animate({
-                scrollTop: $(document.documentElement).offset().top
-            }, 1000);
+
+    $(document).keypress(function(e) {
+        switch(e.which) {
+            case 85: scrollToTop(); break;
         }
     });
 });
