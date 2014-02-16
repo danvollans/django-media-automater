@@ -39,7 +39,7 @@ def list_movies():
                     summary = movie.getAttribute('summary')
                     media_id = movie.getAttribute('ratingKey')
                     video_date = movie.getAttribute('originallyAvailableAt')
-                    movie_list.append([title + ' ' + year, video_date, summary])
+                    movie_list.append([title, video_date, summary])
 
         return movie_list
     except:
