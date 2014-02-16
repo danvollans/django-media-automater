@@ -265,7 +265,7 @@ function load_media_callback(data) {
             $(this).toggle();
             $(this).prev().toggleClass('active');
 
-            alert($(this).prev().attr('id'));
+            alert($(this).prev().text);
             $('body').animate({
                 scrollTop: $('#' + $(this).prev().attr('id')).offset().top
              }, 1000);
