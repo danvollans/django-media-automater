@@ -269,7 +269,7 @@ function load_media_callback(data) {
             $(this).toggle();
             $(this).prev().toggleClass('active');
         });
-        var focus_id = search_results.last().attr('id');
+        var focus_id = search_results.first().attr('id');
         $(document.documentElement).animate({
             scrollTop: $('#' + focus_id).offset().top
         }, 1000);
