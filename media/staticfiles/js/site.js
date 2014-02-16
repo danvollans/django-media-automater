@@ -168,7 +168,7 @@ function eachRecursive(data, element) {
             // First display the title
             var new_id = element.attr('id') + "-" + data_key.replace(/\s|\(|\)/g, "-");
             $("<a/>", {
-                class: "list-group-item",
+                class: "list-group-item media-toggler",
                 text: data_key,
                 onclick: 'javascript: $("#' + new_id + '").toggle(); $(this).toggleClass(\'active\');'
             }).appendTo(element);
@@ -249,8 +249,6 @@ function load_media_callback(data) {
         for (var string in search_strings) {
             search_text += ':Contains("' + search_strings[string] + '")';
         }
-        alert(search_text);
-        alert($(search_text));
     });
 
     // Process the data
@@ -260,7 +258,7 @@ function load_media_callback(data) {
     }).appendTo("#load_media");
     for (var section_key in data) {
         $("<a/>", {
-            class: "list-group-item",
+            class: "list-group-item media-toggler",
             id: section_key + "-list-anchor",
             text: section_key,
             onclick: 'javascript: $("#' + section_key + '-list-data-group").toggle(); $(this).toggleClass(\'active\');'
