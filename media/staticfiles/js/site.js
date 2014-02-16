@@ -265,9 +265,8 @@ function load_media_callback(data) {
             $(this).toggle();
             $(this).prev().toggleClass('active');
 
-            alert($(this).prev().text);
             $('body').animate({
-                scrollTop: $('#' + $(this).prev().attr('id')).offset().top
+                scrollTop: $('#' + $(this).attr('id')).offset().top
              }, 1000);
         });
         search_results.parentsUntil($('#sections-list-group'), ".media-toggler").each(function() {
