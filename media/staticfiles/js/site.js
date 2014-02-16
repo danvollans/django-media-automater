@@ -249,6 +249,20 @@ function load_media_callback(data) {
         for (var string in search_strings) {
             search_text += ':Contains("' + search_strings[string] + '")';
         }
+
+        $('#sections-list-group .media-toggler').each(function() {
+            $(this).css('display', 'none');
+            $(this).removeClass('active');
+        });
+        var search_results = $(search_text + ' div');
+        search_results.each( function() {
+            $(this).toggle();
+            $(this).prev().toggleClass('active');
+        });
+        search_results.parentsUntil($('#sections-list-group'), ".media-toggler").each(function() {
+            $(this).toggle();
+            $(this).prev().toggleClass('active');
+        });
     });
 
     // Process the data
