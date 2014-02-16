@@ -237,6 +237,7 @@ function eachRecursive(data, element) {
 
 function load_media_callback(data) {
     $("#load_media").empty();
+    $("#load_media").append('<input id="media_search_input" type="text" class="textinput textInput form-control"></input>');
     $("<div/>", {
         class: "list-group",
         id: "sections-list-group"
@@ -526,7 +527,7 @@ $(document).ready(function () {
         var search_strings = $("#media_search_input").val().split(' ');
         var search_text = '#sections-list-group a:not(".exclude-search")';
         for (var string in search_strings) {
-            search_text += ':Contains("' + string + '")';
+            search_text += ':Contains("' + search_strings[string] + '")';
         }
         alert(search_text);
         alert($(search_text));
