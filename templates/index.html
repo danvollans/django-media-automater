@@ -20,6 +20,12 @@
             $('#load_media').append("Loading...");
             Dajaxice.media.load_media(load_media_callback);
         }
+
+        $(document).ready(function() {
+            load_media();
+            var mediaTimer = setInterval(load_media, 100000);
+        });
+
         function search_media() {
             $('#data_loader').empty();
             $('#data_loader').append("Loading...");
@@ -58,7 +64,7 @@
 
 <h1>{{ media_header_title }}</h1>
 
-<button class="btn btn-success" type="button" onclick="load_media(); return false">Load Current Media</button>
+<!--<button class="btn btn-success" type="button" onclick="load_media(); return false">Load Current Media</button>-->
 <div id="load_media" class="loader">
 
 </div>
