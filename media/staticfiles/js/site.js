@@ -264,16 +264,15 @@ function load_media_callback(data) {
         search_results.each( function() {
             $(this).toggle();
             $(this).prev().toggleClass('active');
-
-            var focus_id = $(this).attr('id');
-            $(document.documentElement).animate({
-                scrollTop: $('#' + focus_id).offset().top
-             }, 1000);
         });
         search_results.parentsUntil($('#sections-list-group'), ".media-toggler").each(function() {
             $(this).toggle();
             $(this).prev().toggleClass('active');
         });
+        var focus_id = search_results.pop().attr('id');
+        $(document.documentElement).animate({
+            scrollTop: $('#' + focus_id).offset().top
+        }, 1000);
     });
 
     // Process the data
