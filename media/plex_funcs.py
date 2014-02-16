@@ -34,7 +34,7 @@ def list_movies():
                 xml_section = minidom.parse(urlopen('%s/%s/%s/all' % (PLEX_URL, PLEX_SECTIONS, key)))
                 media = xml_section.getElementsByTagName('Video')
                 for movie in media:
-                    title = movie.getAttribute('title').lower()
+                    title = movie.getAttribute('title')
                     year = movie.getAttribute('year')
                     summary = movie.getAttribute('summary')
                     media_id = movie.getAttribute('ratingKey')
@@ -71,7 +71,7 @@ def list_shows():
                         show_dict[show_name] = OrderedDict()
                     if show_season not in show_dict[show_name]:
                         show_dict[show_name][show_season] = OrderedDict()
-                    show_dict[show_name][show_season][show_episode_number] = [show_episode_title, show_summary, media_id, video_date]
+                    show_dict[show_name][show_season][show_episode_number] = [show_episode_title, video_date, show_summary, media_id]
 
         # Resort this dictionary
         show_dict = OrderedDict( sorted( show_dict.items() ) )
