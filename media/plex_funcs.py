@@ -39,7 +39,7 @@ def list_movies():
                     summary = movie.getAttribute('summary')
                     media_id = movie.getAttribute('ratingKey')
                     video_date = movie.getAttribute('originallyAvailableAt')
-                    movie_list.append(OrderedDict(title=title + ' ' + year, date=video_date, summary=summary))
+                    movie_list.append([title + ' ' + year, video_date, summary])
 
         return movie_list
     except:
@@ -71,7 +71,7 @@ def list_shows():
                         show_dict[show_name] = OrderedDict()
                     if show_season not in show_dict[show_name]:
                         show_dict[show_name][show_season] = OrderedDict()
-                    show_dict[show_name][show_season][show_episode_number] = OrderedDict(title=show_episode_title,summary=show_summary, media_id=media_id, date=video_date )
+                    show_dict[show_name][show_season][show_episode_number] = [show_episode_title, show_summary, media_id, video_date]
 
         # Resort this dictionary
         show_dict = OrderedDict( sorted( show_dict.items() ) )
