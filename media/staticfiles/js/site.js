@@ -6,12 +6,15 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 });
 
 function shrinkAll(section) {
-    $('#' + div + ' .torrent-collapser').click();
-    if ($('#collapse-all').attr('src') === '/static/img/minus-icon.png') {
-        $('#collapse-all').prop('src', '/static/img/plus.png');
+    if ($('#' + div + 'collapse-all').attr('src') === '/static/img/minus-icon.png') {
+        $('#' + div + ' .torrent-container').hide();
+        $('#' + div + 'collapse-all').prop('src', '/static/img/plus.png');
+        $('#' + div + ' .torrent-collapser').prop('src', '/static/img/plus.png');
     }
     else {
-        $('#collapse-all').prop('src', '/static/img/minus-icon.png');
+        $('#' + div + ' .torrent-container').show();
+        $('#' + div + 'collapse-all').prop('src', '/static/img/minus-icon.png');
+        $('#' + div + ' .torrent-collapser').prop('src', '/static/img/minus-icon.png');
     }
 }
 
