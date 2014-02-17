@@ -335,7 +335,7 @@ function search_callback(data) {
 function torrent_callback(data) {
     if (data.status === 'success') {
         $('#torrent_loader').empty();
-        $('#id_torrent_search_text').addClass('input-loading');
+        $('#id_torrent_search_text').removeClass('input-loading');
         // Check for empty results
         if (Object.keys(data['data']).length === 0) {
             $('#torrent_loader').html("No search results. :-(");
