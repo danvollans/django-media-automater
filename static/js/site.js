@@ -7,7 +7,7 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 
 // AJAX For Downloader Services
 function purge_downloads_callback(data) {
-    $("#purge_downloads").text('Purge Finished');
+    refresh_downloads();
 }
 
 function addDownload(download_url, location) {
@@ -334,7 +334,8 @@ function search_callback(data) {
 }
 function torrent_callback(data) {
     if (data.status === 'success') {
-        $('#torrent_loader').html("");
+        $('#torrent_loader').empty();
+        $('#id_torrent_search_text').removeClass('input-loading');
         // Check for empty results
         if (Object.keys(data['data']).length === 0) {
             $('#torrent_loader').html("No search results. :-(");
