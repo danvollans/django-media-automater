@@ -440,9 +440,7 @@ function files_callback(data) {
                 src: '/static/img/icon-minus.gif',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
-            $('#torrent-container-' + active_torrent + '-img').click(function() {
-                shrinkById(active_torrent);
-            });
+            $('#torrent-container-' + active_torrent + '-img').setAttribute('onclick', 'javascript: shrinkById("' + active_torrent + '"); return false;');
             $('<div/>', {
                 style: 'clear: both;'
             }).appendTo($(torrent_menu));
@@ -517,7 +515,7 @@ function files_callback(data) {
                 src: '/static/img/icon-minus.gif',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
-            $('#torrent-container-' + stopped_torrent + '-img').prop('onclick', 'javascript: shrinkById("' + stopped_torrent + '"); return false;');
+            $('#torrent-container-' + stopped_torrent + '-img').setAttribute('onclick', 'javascript: shrinkById("' + stopped_torrent + '"); return false;');
             $('<div/>', {
                 style: 'clear: both;'
             }).appendTo($(torrent_menu));
