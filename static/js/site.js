@@ -426,6 +426,7 @@ function files_callback(data) {
             }).appendTo($(torrent_menu));
             var torrent_collapser = $('<img/>', {
                 id: 'torrent-container-' + active_torrent + '-img',
+                class: 'torrent-collapser',
                 src: '/static/img/icon-minus.gif',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
@@ -510,6 +511,7 @@ function files_callback(data) {
             }).appendTo($(torrent_menu));
             var torrent_collapser = $('<img/>', {
                 id: 'torrent-container-' + stopped_torrent + '-img',
+                class: 'torrent-collapser',
                 src: '/static/img/icon-minus.gif',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
