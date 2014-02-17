@@ -6,15 +6,18 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 });
 
 function shrinkAll(section) {
-    if ($('#' + div + 'collapse-all').attr('src') === '/static/img/minus-icon.png') {
-        $('#' + div + ' .torrent-container').hide();
-        $('#' + div + 'collapse-all').prop('src', '/static/img/plus.png');
-        $('#' + div + ' .torrent-collapser').prop('src', '/static/img/plus.png');
+    if ($('#' + section.html() === "")) {
+        return;
+    }
+    if ($('#' + section + 'collapse-all').attr('src') === '/static/img/minus-icon.png') {
+        $('#' + section + ' .torrent-container').hide();
+        $('#' + section + 'collapse-all').prop('src', '/static/img/plus.png');
+        $('#' + section + ' .torrent-collapser').prop('src', '/static/img/plus.png');
     }
     else {
-        $('#' + div + ' .torrent-container').show();
-        $('#' + div + 'collapse-all').prop('src', '/static/img/minus-icon.png');
-        $('#' + div + ' .torrent-collapser').prop('src', '/static/img/minus-icon.png');
+        $('#' + section + ' .torrent-container').show();
+        $('#' + section + 'collapse-all').prop('src', '/static/img/minus-icon.png');
+        $('#' + section + ' .torrent-collapser').prop('src', '/static/img/minus-icon.png');
     }
 }
 
