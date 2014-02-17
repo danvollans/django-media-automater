@@ -35,7 +35,7 @@
         }
         function search_torrents() {
             $('#torrent_loader').empty();
-            $('#torrent_loader').append("Loading...");
+            $('#id_torrent_search_text').addClass('input-loading');
             Dajaxice.media.search_torrent(torrent_callback, $('#torrent_form').serializeObject() );
         }
         function files_information() {
