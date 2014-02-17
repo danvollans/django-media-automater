@@ -414,15 +414,38 @@ function files_callback(data) {
                 continue;
             }
             var active_files = active_data[active_torrent]['files'];
-            var torrent_holder = $('<div/>', {
-                class: 'torrent-container',
-                id: 'torrent-container-' + active_torrent
+
+            // Menu stuff
+            var torrent_menu = $('<div/>', {
+                id: 'torrent-container-' + active_torrent + '-menu'
             }).appendTo('#torrents_active_panel_body');
             $('<span/>', {
                 text: 'Torrent ID: ' + active_torrent,
                 id: 'torrent-container-' + active_torrent + '-title',
-                style: "font-weight: bold; margin-right: 20px;"
-            }).appendTo($(torrent_holder));
+                style: "font-size: 1.1em; font-weight: bold; margin-right: 20px; float: left;"
+            }).appendTo($(torrent_menu));
+            var torrent_collapser = $('<img/>', {
+                id: 'torrent-container-' + active_torrent + '-img',
+                src: '/static/img/icon-minus.gif',
+                style: 'cursor: pointer; float: right;'
+            }).appendTo($(torrent_menu));
+            $('<div/>', {
+                style: 'clear: both;'
+            }).appendTo($(torrent_menu));
+            torrent_collapser.click(function() {
+                $('#torrent-container-' + active_torrent).toggle();
+                if ($('#torrent-container-' + active_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
+                    $('#torrent-container-' + active_torrent + '-img').prop('src', '/static/img/plus.png');
+                }
+                else {
+                    $('#torrent-container-' + active_torrent + '-img').prop('src', '/static/img/icon-minus.gif');
+                }
+            });
+
+            var torrent_holder = $('<div/>', {
+                class: 'torrent-container',
+                id: 'torrent-container-' + active_torrent
+            }).appendTo('#torrents_active_panel_body');
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
                 class: "progress"
@@ -479,11 +502,15 @@ function files_callback(data) {
             $('<span/>', {
                 text: 'Torrent ID: ' + stopped_torrent,
                 id: 'torrent-container-' + stopped_torrent + '-title',
-                style: "font-size: 1.1em; font-weight: bold; margin-right: 20px;"
+                style: "font-size: 1.1em; font-weight: bold; margin-right: 20px; float: left;"
             }).appendTo($(torrent_menu));
             var torrent_collapser = $('<img/>', {
                 id: 'torrent-container-' + stopped_torrent + '-img',
-                src: '/static/img/icon-minus.gif'
+                src: '/static/img/icon-minus.gif',
+                style: 'cursor: pointer; float: right;'
+            }).appendTo($(torrent_menu));
+            $('<div/>', {
+                style: 'clear: both;'
             }).appendTo($(torrent_menu));
             torrent_collapser.click(function() {
                 $('#torrent-container-' + stopped_torrent).toggle();
