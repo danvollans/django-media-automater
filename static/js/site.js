@@ -420,7 +420,34 @@ function files_callback(data) {
             }).appendTo('#torrents_active_panel_body');
             $('<span/>', {
                 text: 'Torrent ID: ' + active_torrent,
-                style: "font-weight: bold; margin-right: 20px;"
+                id: 'torrent-container-' + active_torrent + '-title',
+                style: "font-weight: bold; margin-right: 20px; float: left;"
+            }).appendTo($(torrent_holder));
+            var expand_holder = $('<div/>', {
+                style: 'float: right',
+                id: 'torrent-container-' + active_torrent + '-expand'
+            }).appendTo($(torrent_holder));
+            var expand_image = $('<img/>', {
+                src: '/static/img/plus.png'
+            }).appendTo($(torrent_holder));
+            expand_image.click(function() {
+                $('#torrent-container-' + active_torrent).children().show();
+                $('#torrent-container-' + active_torrent + '-collapse').show();
+            });
+            var collapse_holder = $('<div/>', {
+                style: 'float: right',
+                id: 'torrent-container-' + active_torrent + '-collapse'
+            }).appendTo($(torrent_holder));
+            var collapse_image = $('<img/>', {
+                src: '/static/img/icon-minus.gif'
+            }).appendTo($(torrent_holder));
+            collapse_image.click(function() {
+                $('#torrent-container-' + active_torrent).children().hide();
+                $('#torrent-container-' + active_torrent + '-title').show();
+                $('#torrent-container-' + active_torrent + '-expand').show();
+            });
+            $('<div/>', {
+                style: 'clear: both;'
             }).appendTo($(torrent_holder));
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
@@ -452,6 +479,7 @@ function files_callback(data) {
                     text: file_name
                 }).appendTo($(files_ul_holder));
             }
+            //end
         }
 
         // First loop through all alements in the finished array.
