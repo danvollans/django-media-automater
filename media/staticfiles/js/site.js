@@ -448,6 +448,13 @@ function files_callback(data) {
                 class: "show",
                 text: 'Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s'
             }).appendTo($(holder_bar));
+
+            var torrent_holder = $('<div/>', {
+                class: 'torrent-container',
+                id: 'torrent-container-' + active_torrent
+            }).appendTo('#torrents_active_panel_body');
+
+            // Process expander now
             torrent_collapser.click(function() {
                 $('#torrent-container-' + active_torrent).toggle();
                 if ($('#torrent-container-' + active_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
@@ -458,10 +465,6 @@ function files_callback(data) {
                 }
             });
 
-            var torrent_holder = $('<div/>', {
-                class: 'torrent-container',
-                id: 'torrent-container-' + active_torrent
-            }).appendTo('#torrents_active_panel_body');
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
 
             var files_holder = $('<div/>', {
@@ -513,6 +516,14 @@ function files_callback(data) {
             $('<div/>', {
                 style: 'clear: both;'
             }).appendTo($(torrent_menu));
+
+            // Body stuff
+            var torrent_holder = $('<div/>', {
+                class: 'torrent-container',
+                id: 'torrent-container-' + stopped_torrent
+            }).appendTo('#torrents_stopped_panel_body');
+
+            // Process expander now
             torrent_collapser.click(function() {
                 $('#torrent-container-' + stopped_torrent).toggle();
                 if ($('#torrent-container-' + stopped_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
@@ -523,11 +534,6 @@ function files_callback(data) {
                 }
             });
 
-            // Body stuff
-            var torrent_holder = $('<div/>', {
-                class: 'torrent-container',
-                id: 'torrent-container-' + stopped_torrent
-            }).appendTo('#torrents_stopped_panel_body');
             var holder = $('<div/>', {
                 class: "progress"
             }).appendTo($(torrent_holder));
