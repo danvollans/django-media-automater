@@ -7,11 +7,11 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 
 function shrinkById(id) {
     $('#torrent-container-' + id).toggle();
-    if ($('#torrent-container-' + id+ '-img').attr('src') === '/static/img/icon-minus.gif') {
+    if ($('#torrent-container-' + id+ '-img').attr('src') === '/static/img/minus-icon.png') {
         $('#torrent-container-' + id + '-img').prop('src', '/static/img/plus.png');
     }
     else {
-        $('#torrent-container-' + id + '-img').prop('src', '/static/img/icon-minus.gif');
+        $('#torrent-container-' + id + '-img').prop('src', '/static/img/minus-icon.png');
     }
 }
 
@@ -437,7 +437,7 @@ function files_callback(data) {
             var torrent_collapser = $('<img/>', {
                 id: 'torrent-container-' + active_torrent + '-img',
                 class: 'torrent-collapser',
-                src: '/static/img/icon-minus.gif',
+                src: '/static/img/minus-icon.png',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
             $('#torrent-container-' + active_torrent + '-img').attr('onclick', 'javascript: shrinkById("' + active_torrent + '"); return false;');
@@ -512,7 +512,7 @@ function files_callback(data) {
             var torrent_collapser = $('<img/>', {
                 id: 'torrent-container-' + stopped_torrent + '-img',
                 class: 'torrent-collapser',
-                src: '/static/img/icon-minus.gif',
+                src: '/static/img/minus-icon.png',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
             $('#torrent-container-' + stopped_torrent + '-img').attr('onclick', 'javascript: shrinkById("' + stopped_torrent + '"); return false;');
