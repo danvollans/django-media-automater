@@ -15,6 +15,10 @@
     <link type='text/css' href='/static/css/bootstrap-theme.css' rel='stylesheet'>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
     <script type="text/javascript">
+        function purge_downloads() {
+            $("#purge_downloads").text('Purging...');
+            Dajaxice.media.purge_downloads(purge_downloads_callback);
+        }
         function load_media() {
             $('#load_media').empty();
             $('#load_media').append("Loading...");
@@ -122,7 +126,9 @@
             </div>
             <div id="downloads_stopped" class="loader panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Finished Downloads</h4>
+                    <h4 class="panel-title" style="float: left;">Finished Downloads</h4>
+                    <button id="purge-downloads" style="float: right;" class="btn btn-danger" type="button" onclick="purge_downloads(); return false">Purge Finished</button>
+                    <div style="clear: both;"></div>
                 </div>
                 <div id="stopped_panel_body" class="panel-body">
 

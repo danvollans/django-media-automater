@@ -6,6 +6,10 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 });
 
 // AJAX For Downloader Services
+function purge_downloads_callback(data) {
+    $("#purge_downloads").text('Purge Finished');
+}
+
 function addDownload(download_url, location) {
     $('#' + location).closest(".torrent-container").css('background-color', '#66FF99');
     Dajaxice.media.transfer_file(download_file_callback, {'url': download_url, 'location': $('#' + location).val()});
@@ -250,6 +254,7 @@ function load_media_callback(data) {
         if ($("#media_search_input").val().length < 3) {
             return;
         }
+        $("#media_search_input").addClass('input-loading');
         var search_strings = $("#media_search_input").val().split(' ');
         var search_text = '#sections-list-group a:not(".exclude-search")';
         for (var string in search_strings) {
@@ -273,6 +278,7 @@ function load_media_callback(data) {
         $(document.documentElement).animate({
             scrollTop: $('#' + focus_id).offset().top
         }, 1000);
+        $("#media_search_input").removeClass('input-loading');
     });
 
     // Process the data

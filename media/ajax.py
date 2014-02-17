@@ -16,6 +16,15 @@ from media_automater.config import *
 
 
 @dajaxice_register(method='POST')
+def purge_downloads(request):
+    response = purge_finished().status_code
+    if response == 200:
+        return json.dumps({'status': 'success'})
+    else:
+        return json.dumps({'status': 'failure'})
+
+
+@dajaxice_register(method='POST')
 def load_downloads(request):
     downloads = downloads_information()
     return json.dumps(downloads)

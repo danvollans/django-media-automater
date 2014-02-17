@@ -3,7 +3,15 @@ import requests
 import json
 from media_automater.config import *
 
-__all__ = ["add_download", "tell_active", "tell_stopped", "tell_waiting", "get_global_stat", "downloads_information"]
+__all__ = ["add_download", "tell_active", "tell_stopped", "tell_waiting", "get_global_stat", "downloads_information", "purge_finished"]
+
+
+def purge_finished():
+    # First retrieve all finished downloads
+    request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
+                               'method': 'aria2.purgeDownloadResult' })
+
+    return requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
 
 
 def add_download(download_url, directory):
@@ -71,4 +79,4 @@ def downloads_information():
 
 
 if __name__ == '__main__':
-    print('Loaded')
+    print(purge_finished())
