@@ -517,9 +517,9 @@ function files_callback(data) {
                 src: '/static/img/icon-minus.gif',
                 style: 'cursor: pointer; float: right;'
             }).appendTo($(torrent_menu));
-            $('#torrent-container-' + stopped_torrent + '-img').click(function() {
-                shrinkById(stopped_torrent);
-            });
+            $('#torrent-container-' + stopped_torrent + '-img').click(function(id) {
+                shrinkById(id);
+            }(stopped_torrent));
             $('<div/>', {
                 style: 'clear: both;'
             }).appendTo($(torrent_menu));
