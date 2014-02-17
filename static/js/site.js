@@ -9,14 +9,14 @@ function shrinkAll(section) {
     if ($('#' + section).html() === "") {
         return;
     }
-    if ($('#' + section + 'collapse-all').attr('src') === '/static/img/minus-icon.png') {
+    if ($('#' + section + '-collapse-all').attr('src') === '/static/img/minus-icon.png') {
         $('#' + section + ' .torrent-container').hide();
-        $('#' + section + 'collapse-all').prop('src', '/static/img/plus.png');
+        $('#' + section + '-collapse-all').prop('src', '/static/img/plus.png');
         $('#' + section + ' .torrent-collapser').prop('src', '/static/img/plus.png');
     }
     else {
         $('#' + section + ' .torrent-container').show();
-        $('#' + section + 'collapse-all').prop('src', '/static/img/minus-icon.png');
+        $('#' + section + '-collapse-all').prop('src', '/static/img/minus-icon.png');
         $('#' + section + ' .torrent-collapser').prop('src', '/static/img/minus-icon.png');
     }
 }
