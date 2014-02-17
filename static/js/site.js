@@ -6,7 +6,7 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 });
 
 function shrinkAll(section) {
-    if ($('#' + section.html() === "")) {
+    if ($('#' + section).html() === "") {
         return;
     }
     if ($('#' + section + 'collapse-all').attr('src') === '/static/img/minus-icon.png') {
