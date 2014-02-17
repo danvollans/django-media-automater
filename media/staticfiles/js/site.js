@@ -5,6 +5,16 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
     };
 });
 
+function shrinkById(id) {
+    $('#torrent-container-' + id).toggle();
+    if ($('#torrent-container-' + id+ '-img').attr('src') === '/static/img/icon-minus.gif') {
+        $('#torrent-container-' + id + '-img').prop('src', '/static/img/plus.png');
+    }
+    else {
+        $('#torrent-container-' + id + '-img').prop('src', '/static/img/icon-minus.gif');
+    }
+}
+
 // AJAX For Downloader Services
 function purge_downloads_callback(data) {
     refresh_downloads();
@@ -428,7 +438,8 @@ function files_callback(data) {
                 id: 'torrent-container-' + active_torrent + '-img',
                 class: 'torrent-collapser',
                 src: '/static/img/icon-minus.gif',
-                style: 'cursor: pointer; float: right;'
+                style: 'cursor: pointer; float: right;',
+                click: 'javascript: shrinkById("' + active_torrent + '");return false;'
             }).appendTo($(torrent_menu));
             $('<div/>', {
                 style: 'clear: both;'
@@ -454,17 +465,6 @@ function files_callback(data) {
                 class: 'torrent-container',
                 id: 'torrent-container-' + active_torrent
             }).appendTo('#torrents_active_panel_body');
-
-            // Process expander now
-            $('#torrent-container-' + active_torrent + '-img').click(function() {
-                $('#torrent-container-' + active_torrent).toggle();
-                if ($('#torrent-container-' + active_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
-                    $('#torrent-container-' + active_torrent + '-img').prop('src', '/static/img/plus.png');
-                }
-                else {
-                    $('#torrent-container-' + active_torrent + '-img').prop('src', '/static/img/icon-minus.gif');
-                }
-            });
 
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
 
@@ -513,7 +513,8 @@ function files_callback(data) {
                 id: 'torrent-container-' + stopped_torrent + '-img',
                 class: 'torrent-collapser',
                 src: '/static/img/icon-minus.gif',
-                style: 'cursor: pointer; float: right;'
+                style: 'cursor: pointer; float: right;',
+                click: 'javascript: shrinkById("' + active_torrent + '");return false;'
             }).appendTo($(torrent_menu));
             $('<div/>', {
                 style: 'clear: both;'
@@ -524,18 +525,6 @@ function files_callback(data) {
                 class: 'torrent-container',
                 id: 'torrent-container-' + stopped_torrent
             }).appendTo('#torrents_stopped_panel_body');
-
-            // Process expander now
-            $('#torrent-container-' + stopped_torrent + '-img').click(function() {
-                alert(stopped_torrent);
-                $('#torrent-container-' + stopped_torrent).toggle();
-                if ($('#torrent-container-' + stopped_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
-                    $('#torrent-container-' + stopped_torrent + '-img').prop('src', '/static/img/plus.png');
-                }
-                else {
-                    $('#torrent-container-' + stopped_torrent + '-img').prop('src', '/static/img/icon-minus.gif');
-                }
-            });
 
             var holder = $('<div/>', {
                 class: "progress"
