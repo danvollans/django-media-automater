@@ -6,6 +6,16 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 });
 
 function shrinkById(id) {
+    if (id === 'all') {
+        $('.torrent-collapser').click();
+        if ($('#collapse-all').attr('src') === '/static/img/minus-icon.png') {
+            $('#collapse-all').prop('src', '/static/img/plus.png');
+        }
+        else {
+            $('#collapse-all').prop('src', '/static/img/minus-icon.png');
+        }
+        return;
+    }
     $('#torrent-container-' + id).toggle();
     if ($('#torrent-container-' + id+ '-img').attr('src') === '/static/img/minus-icon.png') {
         $('#torrent-container-' + id + '-img').prop('src', '/static/img/plus.png');

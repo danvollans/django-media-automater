@@ -98,7 +98,9 @@
         <div id="files_loader" style="display:none;" class="loader">
             <div id="torrents_active" class="loader panel panel-info">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Active Torrents</h4>
+                    <h4 class="panel-title" style="float: left;">Active Torrents</h4>
+                    <img id="collapse-all" src="/static/img/minus-icon.png" style="cursor: pointer; float: right;" onclick="javascript: shrinkById('all'); return false;">
+                    <div style="clear: both"></div>
                 </div>
                 <div id="torrents_active_panel_body" class="panel-body">
 
@@ -106,7 +108,9 @@
             </div>
             <div id="torrents_stopped" class="loader panel panel-success">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Finished Torrents</h4>
+                    <h4 class="panel-title" style="float: left;">Finished Torrents</h4>
+                    <img id="collapse-all" src="/static/img/minus-icon.png.png" style="cursor: pointer; float: right;" onclick="javascript: shrinkById('all'); return false;">
+                    <div style="clear: both"></div>
                 </div>
                 <div id="torrents_stopped_panel_body" class="panel-body">
 

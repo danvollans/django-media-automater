@@ -9,20 +9,8 @@ var Dajaxice = {
     
     media: {
     
-    load_downloads: function(callback_function, argv, custom_settings){
-        return Dajaxice.call('media.load_downloads', 'POST', callback_function, argv, custom_settings);
-    },
-
-    transfer_file: function(callback_function, argv, custom_settings){
-        return Dajaxice.call('media.transfer_file', 'POST', callback_function, argv, custom_settings);
-    },
-
     refresh_files: function(callback_function, argv, custom_settings){
         return Dajaxice.call('media.refresh_files', 'POST', callback_function, argv, custom_settings);
-    },
-
-    delete_torrent: function(callback_function, argv, custom_settings){
-        return Dajaxice.call('media.delete_torrent', 'POST', callback_function, argv, custom_settings);
     },
 
     search_torrent: function(callback_function, argv, custom_settings){
@@ -37,12 +25,24 @@ var Dajaxice = {
         return Dajaxice.call('media.search_media', 'POST', callback_function, argv, custom_settings);
     },
 
+    purge_downloads: function(callback_function, argv, custom_settings){
+        return Dajaxice.call('media.purge_downloads', 'POST', callback_function, argv, custom_settings);
+    },
+
+    delete_torrent: function(callback_function, argv, custom_settings){
+        return Dajaxice.call('media.delete_torrent', 'POST', callback_function, argv, custom_settings);
+    },
+
     transmission_torrent: function(callback_function, argv, custom_settings){
         return Dajaxice.call('media.transmission_torrent', 'POST', callback_function, argv, custom_settings);
     },
 
-    purge_downloads: function(callback_function, argv, custom_settings){
-        return Dajaxice.call('media.purge_downloads', 'POST', callback_function, argv, custom_settings);
+    load_downloads: function(callback_function, argv, custom_settings){
+        return Dajaxice.call('media.load_downloads', 'POST', callback_function, argv, custom_settings);
+    },
+
+    transfer_file: function(callback_function, argv, custom_settings){
+        return Dajaxice.call('media.transfer_file', 'POST', callback_function, argv, custom_settings);
     }
 
 
