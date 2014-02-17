@@ -525,6 +525,7 @@ function files_callback(data) {
 
             // Process expander now
             torrent_collapser.click(function() {
+                alert(stopped_torrent);
                 $('#torrent-container-' + stopped_torrent).toggle();
                 if ($('#torrent-container-' + stopped_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
                     $('#torrent-container-' + stopped_torrent + '-img').prop('src', '/static/img/plus.png');
