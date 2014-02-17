@@ -421,33 +421,7 @@ function files_callback(data) {
             $('<span/>', {
                 text: 'Torrent ID: ' + active_torrent,
                 id: 'torrent-container-' + active_torrent + '-title',
-                style: "font-weight: bold; margin-right: 20px; float: left;"
-            }).appendTo($(torrent_holder));
-            var expand_holder = $('<div/>', {
-                style: 'float: right',
-                id: 'torrent-container-' + active_torrent + '-expand'
-            }).appendTo($(torrent_holder));
-            var expand_image = $('<img/>', {
-                src: '/static/img/plus.png'
-            }).appendTo($(torrent_holder));
-            expand_image.click(function() {
-                $('#torrent-container-' + active_torrent).children().show();
-                $('#torrent-container-' + active_torrent + '-collapse').show();
-            });
-            var collapse_holder = $('<div/>', {
-                style: 'float: right',
-                id: 'torrent-container-' + active_torrent + '-collapse'
-            }).appendTo($(torrent_holder));
-            var collapse_image = $('<img/>', {
-                src: '/static/img/icon-minus.gif'
-            }).appendTo($(torrent_holder));
-            collapse_image.click(function() {
-                $('#torrent-container-' + active_torrent).children().hide();
-                $('#torrent-container-' + active_torrent + '-title').show();
-                $('#torrent-container-' + active_torrent + '-expand').show();
-            });
-            $('<div/>', {
-                style: 'clear: both;'
+                style: "font-weight: bold; margin-right: 20px;"
             }).appendTo($(torrent_holder));
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
             var holder = $('<div/>', {
@@ -488,6 +462,7 @@ function files_callback(data) {
         var stopped_data = data['data']['finished'];
         for (var stopped_torrent in stopped_data) {
             if ($('#torrents_active #torrent-container-' + stopped_torrent).length) {
+                $('#torrents_active #torrent-container-' + stopped_torrent + '-menu').remove();
                 $('#torrents_active #torrent-container-' + stopped_torrent).remove();
             }
             if ($('#torrents_stopped #torrent-container-' + stopped_torrent).length) {
@@ -496,14 +471,35 @@ function files_callback(data) {
             var stopped_files = stopped_data[stopped_torrent]['files'];
             var percentage = stopped_data[stopped_torrent]['progress'].toString();
             var speed = stopped_data[stopped_torrent]['speed'];
+
+            // Menu stuff
+            var torrent_menu = $('<div/>', {
+                id: 'torrent-container-' + stopped_torrent + '-menu'
+            }).appendTo('#torrents_stopped_panel_body');
+            $('<span/>', {
+                text: 'Torrent ID: ' + stopped_torrent,
+                id: 'torrent-container-' + stopped_torrent + '-title',
+                style: "font-size: 1.1em; font-weight: bold; margin-right: 20px;"
+            }).appendTo($(torrent_menu));
+            var torrent_collapser = $('<img/>', {
+                id: 'torrent-container-' + stopped_torrent + '-img',
+                src: '/static/img/icon-minus.gif'
+            }).appendTo($(torrent_menu));
+            torrent_collapser.click(function() {
+                $('#torrent-container-' + stopped_torrent).toggle();
+                if ($('#torrent-container-' + stopped_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
+                    $('#torrent-container-' + stopped_torrent + '-img').prop('src', '/static/img/plus.png');
+                }
+                else {
+                    $('#torrent-container-' + stopped_torrent + '-img').prop('src', '/static/img/icon-minus.gif');
+                }
+            });
+
+            // Body stuff
             var torrent_holder = $('<div/>', {
                 class: 'torrent-container',
                 id: 'torrent-container-' + stopped_torrent
             }).appendTo('#torrents_stopped_panel_body');
-            $('<span/>', {
-                text: 'Torrent ID: ' + stopped_torrent,
-                style: "font-size: 1.1em; font-weight: bold; margin-right: 20px;"
-            }).appendTo($(torrent_holder));
             var holder = $('<div/>', {
                 class: "progress"
             }).appendTo($(torrent_holder));
