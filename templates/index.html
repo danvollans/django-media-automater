@@ -24,7 +24,6 @@
             $('#load_media').append("Loading...");
             Dajaxice.media.load_media(load_media_callback);
         }
-
         $(document).ready(function() {
             load_media();
         });
@@ -127,7 +126,7 @@
             <div id="downloads_stopped" class="loader panel panel-success">
                 <div class="panel-heading">
                     <h4 class="panel-title" style="float: left;">Finished Downloads</h4>
-                    <button id="purge-downloads" style="float: right;" class="btn btn-danger" type="button" onclick="purge_downloads(); return false">Purge Finished</button>
+                    <button id="purge-downloads" style="float: right;" class="btn btn-sm btn-danger" type="button" onclick="purge_downloads(); return false">Purge Finished</button>
                     <div style="clear: both;"></div>
                 </div>
                 <div id="stopped_panel_body" class="panel-body">
