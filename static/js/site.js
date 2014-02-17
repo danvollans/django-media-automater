@@ -432,6 +432,22 @@ function files_callback(data) {
             $('<div/>', {
                 style: 'clear: both;'
             }).appendTo($(torrent_menu));
+            var holder = $('<div/>', {
+                class: "progress"
+            }).appendTo($(torrent_menu));
+            var holder_bar = $('<div/>', {
+                id: 'torrent-container-' + active_torrent + '-progress',
+                class: "progress-bar progress-bar-info",
+                role: "progressbar",
+                "aria-valuenow": percentage,
+                "aria-valuemin": "0",
+                "aria-valuemax": "100",
+                style: "width: " + percentage + "%"
+            }).appendTo($(holder));
+            $('<span/>', {
+                class: "show",
+                text: 'Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s'
+            }).appendTo($(holder_bar));
             torrent_collapser.click(function() {
                 $('#torrent-container-' + active_torrent).toggle();
                 if ($('#torrent-container-' + active_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
@@ -447,22 +463,7 @@ function files_callback(data) {
                 id: 'torrent-container-' + active_torrent
             }).appendTo('#torrents_active_panel_body');
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
-            var holder = $('<div/>', {
-                class: "progress"
-            }).appendTo($(torrent_holder));
-            var holder_bar = $('<div/>', {
-                id: 'torrent-container-' + active_torrent + '-progress',
-                class: "progress-bar progress-bar-info",
-                role: "progressbar",
-                "aria-valuenow": percentage,
-                "aria-valuemin": "0",
-                "aria-valuemax": "100",
-                style: "width: " + percentage + "%"
-            }).appendTo($(holder));
-            $('<span/>', {
-                class: "show",
-                text: 'Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s'
-            }).appendTo($(holder_bar));
+
             var files_holder = $('<div/>', {
                 text: 'Files:'
             }).appendTo($(torrent_holder));
