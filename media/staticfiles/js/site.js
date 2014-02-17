@@ -7,7 +7,7 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 
 // AJAX For Downloader Services
 function purge_downloads_callback(data) {
-    $("#purge_downloads").text('Purge Finished');
+    $("#purge-downloads").text('Purge Finished');
 }
 
 function addDownload(download_url, location) {
