@@ -455,7 +455,7 @@ function files_callback(data) {
             }).appendTo('#torrents_active_panel_body');
 
             // Process expander now
-            torrent_collapser.click(function() {
+            $('#torrent-container-' + active_torrent + '-img').click(function() {
                 $('#torrent-container-' + active_torrent).toggle();
                 if ($('#torrent-container-' + active_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
                     $('#torrent-container-' + active_torrent + '-img').prop('src', '/static/img/plus.png');
@@ -524,7 +524,7 @@ function files_callback(data) {
             }).appendTo('#torrents_stopped_panel_body');
 
             // Process expander now
-            torrent_collapser.click(function() {
+            $('#torrent-container-' + stopped_torrent + '-img').click(function() {
                 alert(stopped_torrent);
                 $('#torrent-container-' + stopped_torrent).toggle();
                 if ($('#torrent-container-' + stopped_torrent + '-img').attr('src') === '/static/img/icon-minus.gif') {
