@@ -275,8 +275,7 @@ function load_media_callback(data) {
 
     // Search Functionality for loaded media
     $("#media_search_input").on('keyup', function(e) {
-        var tag = e.target.tagName.toLowerCase();
-        if (e.which != 13 || tag == 'input' || tag == 'textarea') {
+        if (e.which != 13) {
             return;
         }
         else {
@@ -645,7 +644,15 @@ $(document).ready(function () {
 
     $(document).keypress(function(e) {
         switch(e.which) {
-            case 117: scrollToTop(); break;
+            case 117:
+                var tag = e.target.tagName.toLowerCase();
+                if (tag == 'input' || tag == 'textarea') {
+                    break;
+                }
+                else {
+                    scrollToTop();
+                }
+                break;
         }
     });
 });
