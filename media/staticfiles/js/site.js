@@ -275,7 +275,8 @@ function load_media_callback(data) {
 
     // Search Functionality for loaded media
     $("#media_search_input").on('keyup', function(e) {
-        if (e.which != 13) {
+        var tag = e.target.tagName.toLowerCase();
+        if (e.which != 13 || tag == 'input' || tag == 'textarea') {
             return;
         }
         else {
