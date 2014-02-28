@@ -36,12 +36,11 @@ The server that is running the aria2 daemon must at least have the storage that 
 Installation Instructions:
 --------------------------
 ### Preferred Setup ###
-
 Plex:
-  * Two sections, TV Shows and Movies.
-  * TV Shows storage format:
+  1.  Two sections, TV Shows and Movies.
+  2.  TV Shows storage format:
     * TV Shows/\<Showname\>/Season \<#\>/\<Episode\>
-  * Movies storage format:
+  3.  Movies storage format:
     * Movies/\<Moviename\> (\<Year\>)/\<Movie\>
 
 
