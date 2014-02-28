@@ -10,7 +10,7 @@ Required Software:
 * Transmission as a torrent client running the RPC Server
 * A server running aria2 for downloading files over HTTPS:
   * Command for running aria2 in daemon mode with RPC:
-    * aria2c --daemon --enable-rpc --rpc-listen-all --rpc-user=<user> --rpc-passwd=<pass> --check-certificate=false --log-level=warn --log=/tmp/aria2.log
+    * aria2c --daemon --enable-rpc --rpc-listen-all --rpc-user=user --rpc-passwd=pass --check-certificate=false --log-level=warn --log=/tmp/aria2.log
 
 Required Python Software:
 -------------------------
