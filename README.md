@@ -36,17 +36,17 @@ The server that is running the aria2 daemon must at least have the storage that 
 Installation Instructions:
 --------------------------
 ### Preferred Setup ###
-    Plex:
-      * Two sections, TV Shows and Movies.
-      * TV Shows storage format:
-        * TV Shows/\<Showname\>/Season \<#\>/\<Episode\>
-      * Movies storage format:
-        * Movies/\<Moviename\> (\<Year\>)/\<Movie\>
+
+Plex:
+  * Two sections, TV Shows and Movies.
+  * TV Shows storage format:
+    * TV Shows/\<Showname\>/Season \<#\>/\<Episode\>
+  * Movies storage format:
+    * Movies/\<Moviename\> (\<Year\>)/\<Movie\>
 
 
 ### Configuration ###
-1.  Copy config-example.py to config.py.
-*
+1.  Copy config-example.py to config.py
 2.  Plex configurations
 
         PLEX_URL = "https://127.0.0.1:32400"
