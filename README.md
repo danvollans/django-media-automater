@@ -20,6 +20,7 @@ Required Python Software:
     * python3.3
 2.  Python Packages
     * django >= 1.5
+    * djangocms_admin_style
     * django-dajax
     * transmissionrpc
     * requests
