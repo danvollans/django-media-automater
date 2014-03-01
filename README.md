@@ -21,7 +21,6 @@ Required Python Software:
 2.  Python Packages
     * django >= 1.5
     * django-dajax
-    * django-dajaxice
     * transmissionrpc
     * requests
     * django-crispy-forms
