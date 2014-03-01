@@ -25,7 +25,7 @@ Required Python Software:
 * requests
 * django-crispy-forms
 * xml
-* urllib
+* urllib3
 * bs4
 
 General Requirements:
