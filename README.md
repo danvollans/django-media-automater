@@ -56,6 +56,8 @@ Plex:
         TRANSMISSION_PASS = ''
 
         ARIA_HOST = ''
+        # ARIA_HOST should look similar to: 'http://127.0.0.1:6800/jsonrpc'
         ARIA_USER = ''
         ARIA_PASS = ''
         ARIA_LOCATION = ''
+        # ARIA_LOCATION is the mount point for where your videos are stored
