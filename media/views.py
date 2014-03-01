@@ -4,7 +4,10 @@ from django.template import Context, loader
 from media.plex_funcs import *
 from media.forms import *
 from django.core.context_processors import csrf
+from django.contrib.auth.decorators import login_required
 
+
+@login_required()
 def home(request):
     page_title = "media automater"
     media_header_title = "plex media"
