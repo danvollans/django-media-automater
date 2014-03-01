@@ -22,8 +22,12 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+
     # Dajax
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
+
+
 
     # Catch all for home
     url(r'^$', 'media.views.home', name='home'),
