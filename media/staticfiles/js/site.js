@@ -26,7 +26,7 @@ function shrinkAll(section) {
 }
 
 function shrinkById(id) {
-    $('#torrent-container-' + id).toggle();
+    $('#torrent-container-' + id).slideToggle();
     if ($('#torrent-container-' + id+ '-img').attr('src') === '/static/img/minus-icon.png') {
         $('#torrent-container-' + id + '-img').prop('src', '/static/img/plus.png');
     }
@@ -204,7 +204,7 @@ function eachRecursive(data, element) {
             $("<a/>", {
                 class: "list-group-item",
                 text: data_key,
-                onclick: 'javascript: $("#' + new_id + '").toggle(); $(this).toggleClass(\'active\');'
+                onclick: 'javascript: $("#' + new_id + '").slideToggle(); $(this).toggleClass(\'active\');'
             }).appendTo(element);
             var new_group = $("<div/>", {
                 class: "list-group media-toggler",
@@ -297,11 +297,11 @@ function load_media_callback(data) {
         });
         var search_results = $(search_text + ' + div');
         search_results.each( function() {
-            $(this).toggle();
+            $(this).slideToggle();
             $(this).prev().toggleClass('active');
         });
         search_results.parentsUntil($('#sections-list-group'), ".media-toggler").each(function() {
-            $(this).toggle();
+            $(this).slideToggle();
             $(this).prev().toggleClass('active');
         });
         var focus_id = search_results.first().attr('id');
@@ -321,7 +321,7 @@ function load_media_callback(data) {
             class: "list-group-item",
             id: section_key + "-list-anchor",
             text: section_key,
-            onclick: 'javascript: $("#' + section_key + '-list-data-group").toggle(); $(this).toggleClass(\'active\');'
+            onclick: 'javascript: $("#' + section_key + '-list-data-group").slideToggle(); $(this).toggleClass(\'active\');'
         }).appendTo("#sections-list-group");
         $("<div/>", {
             class: "list-group media-toggler",
