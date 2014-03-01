@@ -54,6 +54,8 @@ Plex:
         TRANSMISSION_PORT = ''
         TRANSMISSION_USER = ''
         TRANSMISSION_PASS = ''
+        TRANSMISSION_DOWNLOAD = ''
+        # TRANSMISSION_DOWNLOAD is the HTTP/HTTPS location (root url) of all your downloads
 
         ARIA_HOST = ''
         # ARIA_HOST should look similar to: 'http://127.0.0.1:6800/jsonrpc'
