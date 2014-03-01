@@ -74,7 +74,15 @@ def downloads_information():
             waiting_dict = json.loads(tell_waiting().text)['result']
         else:
             waiting_dict = dict()
-    results = dict(active=active_dict, stopped=stopped_dict, waiting=waiting_dict)
+        status = 'success'
+        error = ''
+    else:
+        active = dict()
+        stopped = dict()
+        waiting = dict()
+        status = 'failure'
+        error = global_query.status_code
+    results = dict(active=active_dict, stopped=stopped_dict, waiting=waiting_dict, status=status, error=error)
     return results
 
 

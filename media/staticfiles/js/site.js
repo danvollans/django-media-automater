@@ -60,6 +60,11 @@ function refresh_files_ajax() {
 }
 
 function downloads_callback(data) {
+    if (data['status'] == 'failure') {
+        console.log(data['error']);
+        return;
+    }
+
     $('#active_panel_body').empty();
     var active_data = data['active'];
     for (var active_download in active_data) {
