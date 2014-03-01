@@ -16,17 +16,13 @@ Required Python Software:
 -------------------------
 * python3.3
 * django >= 1.5
-* json
 * django-dajax
 * django-dajaxice
-* ast
 * transmissionrpc
-* operator
 * requests
 * django-crispy-forms
-* xml
 * urllib3
-* bs4
+* beautifulsoup4
 
 General Requirements:
 ---------------------
