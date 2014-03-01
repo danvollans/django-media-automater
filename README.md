@@ -14,15 +14,19 @@ Required Software:
 
 Required Python Software:
 -------------------------
-* python3.3
-* django >= 1.5
-* django-dajax
-* django-dajaxice
-* transmissionrpc
-* requests
-* django-crispy-forms
-* urllib3
-* beautifulsoup4
+1.  Server Packages
+    * apache
+    * libapache2-mod-wsgi-py3 // or relevant mod_wsgi package
+    * python3.3
+2.  Python Packages
+    * django >= 1.5
+    * django-dajax
+    * django-dajaxice
+    * transmissionrpc
+    * requests
+    * django-crispy-forms
+    * urllib3
+    * beautifulsoup4
 
 General Requirements:
 ---------------------
