@@ -121,6 +121,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'media_automater.urls'
 
+# LOGIN Settings
+LOGIN_URL = '/login/'
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'media_automater.wsgi.application'
 
