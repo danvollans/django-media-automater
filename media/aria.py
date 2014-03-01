@@ -23,9 +23,12 @@ def add_download(download_url, directory):
     return request
 
 
-def tell_waiting():
+def tell_waiting(waiting=None):
+    if not waiting:
+        waiting = 1
     request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
-                               'method': 'aria2.tellWaiting'})
+                               'method': 'aria2.tellWaiting',
+                               'params': [0, waiting]})
 
     return requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
 
@@ -37,16 +40,12 @@ def tell_active():
     return requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
 
 
-def tell_stopped():
-    global_query = get_global_stat()
-    if global_query.text:
-        global_dict = json.loads(global_query.text)
-        max_stopped = int(global_dict['result']['numStopped'])
-    else:
-        max_stopped = 1
+def tell_stopped(stopped=None):
+    if not stopped:
+        stopped = 1
     request_json = json.dumps({'jsonrpc': '2.0', 'id': 'qwer',
                                'method': 'aria2.tellStopped',
-                               'params': [0, max_stopped]})
+                               'params': [0, stopped]})
 
     return requests.post(ARIA_HOST, request_json, auth=(ARIA_USER, ARIA_PASS))
 
@@ -67,11 +66,11 @@ def downloads_information():
         else:
             active_dict = dict()
         if int(global_dict['result']['numStopped']) > 0:
-            stopped_dict = json.loads(tell_stopped().text)['result']
+            stopped_dict = json.loads(tell_stopped(stopped=int(global_dict['result']['numStopped'])).text)['result']
         else:
             stopped_dict = dict()
         if int(global_dict['result']['numWaiting']) > 0:
-            waiting_dict = json.loads(tell_waiting().text)['result']
+            waiting_dict = json.loads(tell_waiting(waiting=int(global_dict['result']['numWaiting'])).text)['result']
         else:
             waiting_dict = dict()
         status = 'success'
@@ -87,4 +86,6 @@ def downloads_information():
 
 
 if __name__ == '__main__':
-    print(purge_finished())
+    #print(purge_finished())
+    #print(downloads_information())
+    print(tell_waiting().text)
