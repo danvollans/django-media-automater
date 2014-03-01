@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'dajax',
     'dajaxice',
     # Uncomment the next line to enable the admin:
+    'djangocms_admin_style',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
