@@ -214,7 +214,8 @@ function eachRecursive(data, element) {
             // First display the title
             // Also remove the junk that will make the javascript fail
             var new_key = data_key.replace(/\s|\(|\)/g, "-").replace(/&/g, 'and').replace(/'/g, '');
-            var new_id = element.attr('id') + "-" + new_key + 'LOL';
+            var new_id = element.attr('id') + "-" + new_key;
+            if (new_id.indexOf("Sunny") != -1) { alert(new_id) }
             $("<a/>", {
                 class: "list-group-item",
                 text: data_key,
