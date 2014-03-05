@@ -213,7 +213,8 @@ function eachRecursive(data, element) {
             // Create a new list group, and then an item that is another list group GROUP-CEPTION!
             // First display the title
             // Also remove the junk that will make the javascript fail
-            var new_id = element.attr('id') + "-" + data_key.replace(/\s|\(|\)/g, "-").replace(/&/g, 'and').replace(/'/g, '');
+            var new_key = data_key.replace(/\s|\(|\)/g, "-").replace(/&/g, 'and').replace(/'/g, '');
+            var new_id = element.attr('id') + "-" + new_key
             $("<a/>", {
                 class: "list-group-item",
                 text: data_key,
