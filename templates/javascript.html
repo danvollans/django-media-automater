@@ -52,6 +52,11 @@ function addDownload(download_url, location) {
     Dajaxice.media.transfer_file(download_file_callback, {'url': download_url, 'location': $('#' + location).val()});
 }
 
+function downloadAll(element) {
+    $('#' + element).children('.download-all-individual').val($('#' + element + '-input').val());
+    $('#' + element).children('.file-download').click();
+}
+
 function download_file_callback(data) {
     if (data['status'] === 'success') {
         refresh_downloads();
@@ -451,11 +456,18 @@ function files_callback(data) {
         for (var active_torrent in active_data) {
             var percentage = active_data[active_torrent]['progress'].toString();
             var speed = parseInt(active_data[active_torrent]['speed']);
-            if ($('#torrent-container-' + active_torrent + '-progress').length) {
-                $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
-                $('#torrent-container-' + active_torrent + '-progress span').html('Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s')
-                continue;
+            //if ($('#torrent-container-' + active_torrent + '-progress').length) {
+            //    $('#torrent-container-' + active_torrent + '-progress').css('width', percentage + "%");
+            //    $('#torrent-container-' + active_torrent + '-progress span').html('Downloading - speed: ' + Math.floor((speed / 1000) / 1000).toString() + ' MB/s')
+            //    continue;
+            //}
+
+            // Check if the menu exists, if so, remove it and the container itself.
+            if ($('#torrent-container-' + active_torrent + '-menu').length) {
+                $('#torrent-container-' + active_torrent + '-menu').remove();
+                $('#torrent-container-' + active_torrent).remove();
             }
+
             var active_files = active_data[active_torrent]['files'];
 
             // Menu stuff
@@ -502,7 +514,8 @@ function files_callback(data) {
             $(torrent_holder).append('<button type="button" class="btn btn-xs btn-danger" onclick="javascript: delete_torrent(' + active_torrent + '); return false;">Delete Torrent and Data</button>');
 
             var files_holder = $('<div/>', {
-                text: 'Files:'
+                text: 'Files:',
+                class: 'files-holder'
             }).appendTo($(torrent_holder));
             var files_ul_holder = $('<ul/>').appendTo($(files_holder));
             for (var file in active_files) {
@@ -574,6 +587,24 @@ function files_callback(data) {
                 class: "show",
                 text: 'Finished - speed: ' + speed + ' MB/s'
             }).appendTo($(holder_bar));
+
+            // Add a div for a download all button, new feature!
+            var download_all_holder = $('<div/>', {
+                class: 'download-all'
+            }).appendTo($(torrent_holder))
+            var download_all_button = $('<button/>', {
+                text: 'Download all to:',
+                id: 'download-all-' + stopped_torrent,
+                style: "float: left;",
+                onclick: 'javascript: downloadAll("torrent-container-' + stopped_torrent + '")'
+            }).appendTo($(download_all_holder));
+            var download_all_input = $('<input/>', {
+                id: 'torrent-container-' + stopped_torrent + '-input',
+                style: "float: left;",
+                type: 'text',
+                class: 'textinput textInput form-control'
+            }).appendTo($(download_all_holder));
+
             var files_holder = $('<div/>', {
                 text: 'Files:'
             }).appendTo($(torrent_holder));
@@ -582,7 +613,7 @@ function files_callback(data) {
             for (var file in stopped_files) {
                 var file_li = $('<li/>').appendTo($(files_ul_holder));
                 var file_name = stopped_files[file]['name'].split('/').pop();
-                $(file_li).append('<a href="#" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\'); return false;">' + file_name +'</a>');
+                $(file_li).append('<a class="file-download" href="#" onclick="javascript: addDownload(\'' + downloadLink + stopped_files[file]['name'] + '\', \'torrent-' + stopped_torrent + '-' + file_counter + '-input\'); return false;">' + file_name +'</a>');
                 var file_container = $('<div/>', {
                     class: 'file_holder',
                     style: 'width: 100%'
@@ -590,7 +621,7 @@ function files_callback(data) {
                 $('<input/>', {
                     id: 'torrent-' + stopped_torrent + '-' + file_counter + '-input',
                     type: 'text',
-                    class: 'textinput textInput form-control',
+                    class: 'download-all-individual textinput textInput form-control',
                     style: 'width: 100%;'
                 }).appendTo($(file_container));
                 guess_location(file_name, 'torrent-' + stopped_torrent + '-' + file_counter + '-input');
