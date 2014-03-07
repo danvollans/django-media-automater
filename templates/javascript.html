@@ -589,21 +589,31 @@ function files_callback(data) {
             }).appendTo($(holder_bar));
 
             // Add a div for a download all button, new feature!
+            // Clear before
+            $('<div/>', {
+                style: 'clear: both;'
+            }).appendTo($(torrent_holder));
             var download_all_holder = $('<div/>', {
                 class: 'download-all'
-            }).appendTo($(torrent_holder))
+            }).appendTo($(torrent_holder));
             var download_all_button = $('<button/>', {
                 text: 'Download all to:',
                 id: 'download-all-' + stopped_torrent,
-                style: "float: left;",
+                type: 'button',
+                class: 'btn btn-xs btn-warning',
+                style: "float: left; width: 20%;",
                 onclick: 'javascript: downloadAll("torrent-container-' + stopped_torrent + '")'
             }).appendTo($(download_all_holder));
             var download_all_input = $('<input/>', {
                 id: 'torrent-container-' + stopped_torrent + '-input',
-                style: "float: left;",
+                style: "float: left; width: 80%;",
                 type: 'text',
                 class: 'textinput textInput form-control'
             }).appendTo($(download_all_holder));
+            // Clear after
+            $('<div/>', {
+                style: 'clear: both;'
+            }).appendTo($(torrent_holder));
 
             var files_holder = $('<div/>', {
                 text: 'Files:'
