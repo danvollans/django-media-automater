@@ -600,13 +600,13 @@ function files_callback(data) {
                 text: 'Download all to:',
                 id: 'download-all-' + stopped_torrent,
                 type: 'button',
-                class: 'btn btn-xs btn-warning',
-                style: "float: left; width: 20%;",
+                class: 'btn btn-sm btn-warning',
+                style: "float: left; width: 30%;",
                 onclick: 'javascript: downloadAll("torrent-container-' + stopped_torrent + '")'
             }).appendTo($(download_all_holder));
             var download_all_input = $('<input/>', {
                 id: 'torrent-container-' + stopped_torrent + '-input',
-                style: "float: left; width: 80%;",
+                style: "float: left; width: 70%;",
                 type: 'text',
                 class: 'textinput textInput form-control'
             }).appendTo($(download_all_holder));
