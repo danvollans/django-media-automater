@@ -53,8 +53,8 @@ function addDownload(download_url, location) {
 }
 
 function downloadAll(element) {
-    $('#' + element).children('.download-all-individual').val($('#' + element + '-input').val());
-    $('#' + element).children('.file-download').click();
+    $('#' + element).find('.download-all-individual').val($('#' + element + '-input').val());
+    $('#' + element).find('.file-download').click();
 }
 
 function download_file_callback(data) {
